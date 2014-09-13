@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Media;
 using System.Threading;
 using System.IO;
+using System.Globalization;
+using System.Windows.Markup;
 using NAudio;
 using NAudio.Wave;
 
@@ -28,8 +30,10 @@ namespace Przeliterowywacz
         public const string configFileName = "Przeliterowywacz.ini"; // nazwa pliku konfiguracyjnego
         // Konfiguracja domyślna
         public bool includeDiacriticalChars = true;
+        public bool deriveFromDefaultSpeechbank = false;
         public Int16 inputScheme = 0;
-        public string currentSpeechbank = "<domyślny>";
+        public string currentSpeechbank = "<default>";
+        public string currentLanguage = "en";
 
         public MainWindow()
         {
@@ -39,24 +43,36 @@ namespace Przeliterowywacz
                 string srLine;
                 while ((srLine = sr.ReadLine()) != null)
                 {
-                    if (srLine.Contains("IncludeDiactricalChars="))
-                        includeDiacriticalChars = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(23)));
+                    if (srLine.Contains("Language="))
+                    {
+                        currentLanguage = srLine.Substring(9);
+                        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(currentLanguage);
+                        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(currentLanguage);
+                        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+                    }
+                    else if (srLine.Contains("IncludeDiacriticalChars="))
+                        includeDiacriticalChars = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(24)));
+                    else if (srLine.Contains("DeriveFromDefaultSpeechbank="))
+                        deriveFromDefaultSpeechbank = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(28)));
                     else if (srLine.Contains("InputScheme="))
                         inputScheme = Convert.ToInt16(srLine.Substring(12));
                     else if (srLine.Contains("Speechbank="))
                     {
                         currentSpeechbank = srLine.Substring(11);
                         if (currentSpeechbank == "<default>")
-                            currentSpeechbank = "<domyślny>";
+                            currentSpeechbank = Properties.Resources.Default;
                     }
                 }
                 sr.Close();
             }
             else
             {
-                var sw = new StreamWriter(new FileStream(configFileName, FileMode.CreateNew), Encoding.GetEncoding(1250));
-                sw.WriteLine("; Nie modyfikować tego pliku ręcznie!\r\n[Przeliterowywacz]\r\nIncludeDiactricalChars=1\r\nInputScheme=0\r\nSpeechbank=<default>"); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej Windows-1250
-                sw.Close();
+                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(currentLanguage);
+                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(currentLanguage);
+                FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+                //var sw = new StreamWriter(new FileStream(configFileName, FileMode.CreateNew), Encoding.GetEncoding(1250));
+                //sw.WriteLine("; Don't modify this file manually! Nie modyfikować tego pliku ręcznie! Modifizieren Sie nicht diese Datei manuell!\r\n[Przeliterowywacz]\r\nLanguage=en\r\nIncludeDiacriticalChars=1\r\nDeriveFromDefaultSpeechbank=0\r\nInputScheme=0\r\nSpeechbank=<default>"); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej Windows-1250
+                //sw.Close();
             }
             InitializeComponent();
             if (inputScheme == 1)
@@ -68,6 +84,11 @@ namespace Przeliterowywacz
             {
                 TextBox1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
                 TextBox1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00FF00"));
+            }
+            if (!File.Exists("NAudio.dll")) // Sprawdzanie, czy w katalogu programu jest biblioteka NAudio.dll
+            {
+                Button3.IsEnabled = false;
+                MessageBox.Show(Properties.Resources.NAudioNotFoundMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -92,7 +113,7 @@ namespace Przeliterowywacz
                         else
                         {
                             if (!reader.WaveFormat.Equals(waveFileWriter.WaveFormat))
-                                throw new InvalidOperationException("Nie można powiązać plików dźwiękowych nie będących tego samego formatu!");
+                                throw new InvalidOperationException(Properties.Resources.CannotConcatenateDifferentFormatsException);
                         }
 
                         int read;
@@ -111,7 +132,7 @@ namespace Przeliterowywacz
         public string specifyFileName(int i, string toBeSaid)
         {
             string fileName = "Banki\\";
-            if (currentSpeechbank != "<domyślny>")
+            if (currentSpeechbank != Properties.Resources.Default)
                 fileName += currentSpeechbank + '\\';
             if (toBeSaid.Substring(i, 1) == " ")
                 fileName = null;
@@ -173,14 +194,27 @@ namespace Przeliterowywacz
                         break;
                     if (waveFileName != null)
                     {
-                        letterFile = new SoundPlayer((string)waveFileName);
-                        letterFile.PlaySync();
+                        if (!deriveFromDefaultSpeechbank)
+                        {
+                            letterFile = new SoundPlayer((string)waveFileName);
+                            letterFile.PlaySync();
+                        }
+                        else
+                        {
+                            string actualSpeechbank = currentSpeechbank;
+                            if (!File.Exists(waveFileName))
+                                currentSpeechbank = Properties.Resources.Default;
+                            waveFileName = specifyFileName(i, toBeSpelled);
+                            letterFile = new SoundPlayer((string)waveFileName);
+                            letterFile.PlaySync();
+                            currentSpeechbank = actualSpeechbank;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Operacja przerwana, ponieważ wystąpił problem z następującym plikiem: " + AppDomain.CurrentDomain.BaseDirectory + waveFileName + ". " + ex.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Hand);
+                MessageBox.Show(String.Format(Properties.Resources.HaltedDueToFileMessage, AppDomain.CurrentDomain.BaseDirectory, waveFileName), Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
             }
             isQuiet = true;
         }
@@ -199,10 +233,10 @@ namespace Przeliterowywacz
                     T1.Start(textToSpell);
                 }
                 else
-                    MessageBox.Show("Nie można teraz wykonać tej operacji, ponieważ poprzednio wywołana wciąż jest w toku. Aby móc to zrobić, należy poczekać na jej zakończenie.", MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show(Properties.Resources.StillWorkingMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
-                MessageBox.Show("Wprowadź najpierw tekst do przeliterowania.", MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(Properties.Resources.NoTextToSpellMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         private void TextBox1_GotMouseCapture(object sender, MouseEventArgs e)
@@ -223,11 +257,11 @@ namespace Przeliterowywacz
             }
             if (isQuiet)
             {
-                ow = new OptionsWindow(configFileName, includeDiacriticalChars, currentSpeechbank);
+                ow = new OptionsWindow(configFileName, includeDiacriticalChars, deriveFromDefaultSpeechbank, currentSpeechbank, currentLanguage);
                 ow.Show();
             }
             else
-                MessageBox.Show("Program zajęty. Aby móc to zrobić, należy najpierw poczekać na zakończenie operacji.", MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(Properties.Resources.IsBusyMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         private async void Button3_Click(object sender, RoutedEventArgs e)
@@ -238,7 +272,7 @@ namespace Przeliterowywacz
                 FD.FileName = "*";
                 FD.DefaultExt = "wav";
                 FD.ValidateNames = true;
-                FD.Filter = "Pliki dźwiękowe (*.wav)|*.wav|Wszystkie pliki|*.*";
+                FD.Filter = Properties.Resources.FileTypes;
 
                 Nullable<bool> result = FD.ShowDialog();
                 if (result == true)
@@ -256,8 +290,17 @@ namespace Przeliterowywacz
                                 filesToPlayList.Add(waveFileName);
                             else
                             {
-                                wasFailed = true;
-                                break;
+                                string actualSpeechbank = currentSpeechbank;
+                                currentSpeechbank = Properties.Resources.Default;
+                                waveFileName = specifyFileName(i, textToRecord);
+                                currentSpeechbank = actualSpeechbank;
+                                if (File.Exists(waveFileName) && deriveFromDefaultSpeechbank)
+                                    filesToPlayList.Add(waveFileName);
+                                else
+                                {
+                                    wasFailed = true;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -267,17 +310,17 @@ namespace Przeliterowywacz
                         Concatenate(FD.FileName, filesToPlayList);
                         if (File.Exists(FD.FileName))
                         {
-                            StatusLabel.Content = "Zapisano.";
+                            StatusLabel.Content = Properties.Resources.SavedStatus;
                             await Task.Delay(5000);
                             StatusLabel.Content = "";
                         }
                     }
                     else
-                        MessageBox.Show("Plik nie został pomyślnie zapisany, ponieważ jeden lub więcej plików wymaganych do odtworzenia nie zostało znalezionych.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        MessageBox.Show(Properties.Resources.WAVEFilesMissingMessage, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
                 }
             }
             else
-                MessageBox.Show("Wprowadź najpierw tekst do nagrania.", MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(Properties.Resources.NoTextToRecordMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         private void MainSpeechWindow_Closed(object sender, EventArgs e)

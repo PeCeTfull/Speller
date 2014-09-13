@@ -1,0 +1,10 @@
+The changelog of Przeliterowywacz
+
+1.1.x.x: 
+* typo in "IncludeDiactricalChars" inside configuration file – changed to "IncludeDiacriticalChars", 
+* ability to check for NAudio.dll in the program directory, 
+* localisation feature, added English and German support, 
+* "Derive files from the default speech bank if such are missing in the selected one" feature in program options, 
+* missing configuration file is created only when the user presses "Save settings" button in the options unlike it was before i.e. right after the program launch.
+
+1.0.5333.38954 - first public release version.

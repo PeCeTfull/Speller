@@ -1,7 +1,8 @@
 ﻿<Window x:Class="Przeliterowywacz.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="O programie" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="Iconexpo-Speech-Balloon-Grey-Speech-balloon-white-p.ico">
+        xmlns:p="clr-namespace:Przeliterowywacz.Properties"
+        Title="{x:Static p:Resources.AboutCaption}" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="Iconexpo-Speech-Balloon-Grey-Speech-balloon-white-p.ico">
     <Window.Background>
         <RadialGradientBrush>
             <GradientStop Color="#FF099BEA" Offset="0" />
@@ -9,11 +10,11 @@
             <GradientStop Color="#FF623FD2" Offset="1" />
         </RadialGradientBrush>
     </Window.Background>
-    <Grid>
-        <Label Name="Label1" Content="Nazwa programu: {0}&#10;Wersja: {1}&#10;Autor: {2}&#10;{3}&#10;Modyfikowanie oraz sprzedawanie tego programu jest surowo zabronione.&#10;Specjalne podziękowania dla Marka Heatha za bibliotekę NAudio &#10;oraz Pawła Firleja (http://pfco.de) za użyczenie głosu do domyślnego &#10;banku mowy." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <UniformGrid Columns="2" HorizontalAlignment="Stretch" Margin="0,143,0,11" VerticalAlignment="Top">
+    <StackPanel>
+        <Label Name="Label1" Content="{x:Static p:Resources.AboutContent}" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+        <UniformGrid Columns="2" HorizontalAlignment="Stretch" Margin="0,4,0,10" VerticalAlignment="Top">
             <Button Name="DockButton1" Content="_OK" Width="110" Click="DockButton1_Click"/>
-            <Button Name="DockButton2" Content="Strona _WWW" Width="110" Click="DockButton2_Click"/>
+            <Button Name="DockButton2" Content="{x:Static p:Resources.WebsiteButton}" Width="110" Click="DockButton2_Click"/>
         </UniformGrid>
-    </Grid>
+    </StackPanel>
 </Window>

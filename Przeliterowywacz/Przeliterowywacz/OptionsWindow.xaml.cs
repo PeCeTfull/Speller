@@ -22,12 +22,14 @@ namespace Przeliterowywacz
     {
         MainWindow main = (MainWindow)Application.Current.MainWindow;
         string configFileName;
+        bool checkingLanguage;
 
-        public OptionsWindow(string configFileName, bool diacriticalOption, string speechbankName)
+        public OptionsWindow(string configFileName, bool diacriticalOption, bool derivativeOption, string speechbankName, string languageCode)
         {
             this.configFileName = configFileName;
             InitializeComponent();
             CheckBox1.IsChecked = diacriticalOption;
+            CheckBox2.IsChecked = derivativeOption;
             // Wyszukuje wszystkie podfoldery w folderze Banki i dodaje znalezione elementy do listy dostępnych banków mowy
             ComboBoxItem cbi;
             string[] folderNames = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + "Banki\\");
@@ -54,9 +56,22 @@ namespace Przeliterowywacz
                 if (i == ComboBox1.Items.Count - 1)
                 {
                     ComboBox1.SelectedIndex = 0;
-                    MessageBox.Show("Folder banku mowy o nazwie „" + speechbankName + "” nie został znaleziony, przywrócono ustawienie domyślne.", main.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show(String.Format(Properties.Resources.SpeechbankFolderNotFoundMessage, speechbankName), main.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
+            // Sprawdza, jaki jest obecnie używany język interfejsu
+            checkingLanguage = true;
+            for (int i = 0; i < ComboBox2.Items.Count; i++)
+            {
+                ComboBox2.SelectedIndex = i;
+                if (Convert.ToInt16(ComboBox2.SelectedIndex) == 1 && languageCode == "pl")
+                    break;
+                else if (Convert.ToInt16(ComboBox2.SelectedIndex) == 2 && languageCode == "de")
+                    break;
+                if (i == ComboBox2.Items.Count - 1)
+                    ComboBox2.SelectedIndex = 0;
+            }
+            checkingLanguage = false;
         }
 
         private void DockButton1_Click(object sender, RoutedEventArgs e)
@@ -72,6 +87,16 @@ namespace Przeliterowywacz
         private void CheckBox1_Unchecked(object sender, RoutedEventArgs e)
         {
             main.includeDiacriticalChars = false;
+        }
+
+        private void CheckBox2_Checked(object sender, RoutedEventArgs e)
+        {
+            main.deriveFromDefaultSpeechbank = true;
+        }
+
+        private void CheckBox2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            main.deriveFromDefaultSpeechbank = false;
         }
 
         private void StyleButton1_Click(object sender, RoutedEventArgs e)
@@ -100,13 +125,26 @@ namespace Przeliterowywacz
             main.currentSpeechbank = ComboBox1.SelectedItem.ToString().Substring(38);
         }
 
+        private void ComboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string languageUsedBefore = main.currentLanguage;
+            if (Convert.ToInt16(ComboBox2.SelectedIndex) == 1)
+                main.currentLanguage = "pl";
+            else if (Convert.ToInt16(ComboBox2.SelectedIndex) == 2)
+                main.currentLanguage = "de";
+            else
+                main.currentLanguage = "en";
+            if (checkingLanguage == false && main.currentLanguage != languageUsedBefore)
+                MessageBox.Show(Properties.Resources.ChangedLanguageMessage, main.Title, MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
         private void DockButton2_Click(object sender, RoutedEventArgs e)
         {
             string speechbank = main.currentSpeechbank;
-            if (speechbank == "<domyślny>")
+            if (speechbank == Properties.Resources.Default)
                 speechbank = "<default>";
             var sw = new StreamWriter(new FileStream(configFileName, FileMode.Create), Encoding.GetEncoding(1250));
-            sw.WriteLine("; Nie modyfikować tego pliku ręcznie!\r\n[Przeliterowywacz]\r\nIncludeDiactricalChars=" + Convert.ToInt16(main.includeDiacriticalChars) + "\r\nInputScheme=" + main.inputScheme + "\r\nSpeechbank=" + speechbank); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej Windows-1250
+            sw.WriteLine("; Don't modify this file manually! Nie modyfikować tego pliku ręcznie! Modifizieren Sie nicht diese Datei manuell!\r\n[Przeliterowywacz]\r\nLanguage=" + main.currentLanguage + "\r\nIncludeDiacriticalChars=" + Convert.ToInt16(main.includeDiacriticalChars) + "\r\nDeriveFromDefaultSpeechbank=" + Convert.ToInt16(main.deriveFromDefaultSpeechbank) + "\r\nInputScheme=" + main.inputScheme + "\r\nSpeechbank=" + speechbank); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej Windows-1250
             sw.Close();
         }
     }

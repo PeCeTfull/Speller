@@ -1,7 +1,8 @@
 ﻿<Window x:Class="Przeliterowywacz.OptionsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Opcje programu" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="Iconexpo-Speech-Balloon-Grey-Speech-balloon-white-p.ico">
+        xmlns:p="clr-namespace:Przeliterowywacz.Properties"
+        Title="{x:Static p:Resources.OptionsCaption}" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="Iconexpo-Speech-Balloon-Grey-Speech-balloon-white-p.ico" UseLayoutRounding="True">
     <Window.Background>
         <RadialGradientBrush>
             <GradientStop Color="#FF099BEA" Offset="0" />
@@ -9,22 +10,44 @@
             <GradientStop Color="#FF623FD2" Offset="1" />
         </RadialGradientBrush>
     </Window.Background>
-    <Grid>
-        <CheckBox Name="CheckBox1" Content="Uwzględnij znaki specjalne i interpunkcyjne (np. przecinek, wykrzyknik, gwiazdka itp.)" HorizontalAlignment="Left" Margin="10,10,10,0" VerticalAlignment="Top" Checked="CheckBox1_Checked" Unchecked="CheckBox1_Unchecked" Foreground="White"/>
-        <Label Content="Schemat kolorów wprowadzania tekstu: " HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <UniformGrid Columns="3" HorizontalAlignment="Stretch" Margin="237,31,10,0" VerticalAlignment="Top">
-            <Button Name="StyleButton1" Content="Standardowy" Background="#7FFFFFC0" Foreground="White" Click="StyleButton1_Click"/>
-            <Button Name="StyleButton2" Content="Czarno-biały" Background="White" Foreground="Black" Click="StyleButton2_Click"/>
-            <Button Name="StyleButton3" Content="Hakerski" Background="Black" Foreground="Lime" Click="StyleButton3_Click"/>
-        </UniformGrid>
-        <Label Content="Bank mowy: " HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <ComboBox Name="ComboBox1" HorizontalAlignment="Stretch" Margin="92,57,10,0" VerticalAlignment="Top" SelectionChanged="ComboBox1_SelectionChanged">
-            <ComboBoxItem Content="&#60;domyślny&#62;"/>
-        </ComboBox>
+    <StackPanel Margin="10,10,10,10">
+        <CheckBox Name="CheckBox1" Content="{x:Static p:Resources.EnableSpecialChars}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Checked="CheckBox1_Checked" Unchecked="CheckBox1_Unchecked"/>
+        <CheckBox Name="CheckBox2" Content="{x:Static p:Resources.DeriveFromDefaultSpeechbank}" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Foreground="White" Checked="CheckBox2_Checked" Unchecked="CheckBox2_Unchecked"/>
+        <DockPanel HorizontalAlignment="Stretch" Margin="0,5,0,0" VerticalAlignment="Top">
+            <Label Content="{x:Static p:Resources.TextInputColorScheme}" Foreground="White"/>
+            <UniformGrid Columns="3" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <Button Name="StyleButton1" Content="{x:Static p:Resources.Standard}" Background="#7FFFFFC0" Foreground="White" Click="StyleButton1_Click"/>
+                <Button Name="StyleButton2" Content="{x:Static p:Resources.BlackAndWhite}" Background="White" Foreground="Black" Click="StyleButton2_Click"/>
+                <Button Name="StyleButton3" Content="{x:Static p:Resources.Console}" Background="Black" Foreground="Lime" Click="StyleButton3_Click"/>
+            </UniformGrid>
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Stretch" Margin="0,1,0,0" VerticalAlignment="Top">
+            <Label Content="{x:Static p:Resources.Speechbank}" Foreground="White"/>
+            <ComboBox Name="ComboBox1" HorizontalAlignment="Stretch" VerticalAlignment="Top" SelectionChanged="ComboBox1_SelectionChanged">
+                <ComboBoxItem Content="{x:Static p:Resources.Default}"/>
+            </ComboBox>
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Stretch" Margin="0,1,0,0" VerticalAlignment="Top">
+            <Label Content="{x:Static p:Resources.Language}" Foreground="White"/>
+            <ComboBox Name="ComboBox2" HorizontalAlignment="Stretch" VerticalAlignment="Top" SelectionChanged="ComboBox2_SelectionChanged">
+                <WrapPanel>
+                    <Image Source="pack://application:,,,/Resources/ca.png" Margin="0,0,5,0"/>
+                    <TextBlock>English</TextBlock>
+                </WrapPanel>
+                <WrapPanel>
+                    <Image Source="pack://application:,,,/Resources/pl.png" Margin="0,0,5,0"/>
+                    <TextBlock>Polski</TextBlock>
+                </WrapPanel>
+                <WrapPanel>
+                    <Image Source="pack://application:,,,/Resources/de.png" Margin="0,0,5,0"/>
+                    <TextBlock>Deutsch</TextBlock>
+                </WrapPanel>
+            </ComboBox>
+        </DockPanel>
         <!--<Button Content="_OK" HorizontalAlignment="Stretch" Margin="0,89,0,11" VerticalAlignment="Top" Width="75" Click="Button_Click"/>-->
-        <UniformGrid Columns="2" HorizontalAlignment="Stretch" Margin="0,89,0,11" VerticalAlignment="Top" >
-            <Button Name="DockButton1" Content="_OK" Width="110" Click="DockButton1_Click"/>
-            <Button Name="DockButton2" Content="_Zapisz ustawienia" Width="110" Click="DockButton2_Click"/>
+        <UniformGrid Columns="2" HorizontalAlignment="Stretch" Margin="0,6,0,0" VerticalAlignment="Top" >
+            <Button Name="DockButton1" Content="_OK" Width="140" Click="DockButton1_Click"/>
+            <Button Name="DockButton2" Content="{x:Static p:Resources.SaveSettingsButton}" Width="140" Click="DockButton2_Click"/>
         </UniformGrid>
-    </Grid>
+    </StackPanel>
 </Window>

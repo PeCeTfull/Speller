@@ -118,118 +118,120 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutButton" xml:space="preserve">
-    <value>_About</value>
+    <value>_Über</value>
   </data>
   <data name="EnableSpecialChars" xml:space="preserve">
-    <value>Enable special and punctuation chars (e.g. comma, exclamation mark, asterisk etc.)</value>
+    <value>Sonder- und Satzzeichen ermöglichen (z.B. Komma, Ausrufezeichen, Sternchen usw.)</value>
   </data>
   <data name="ErrorCaption" xml:space="preserve">
-    <value>Error</value>
+    <value>Fehler</value>
   </data>
   <data name="FirstInput" xml:space="preserve">
-    <value>Enter text to be read here</value>
+    <value>Geben Sie hier einen Text zu verlesen an</value>
   </data>
   <data name="HaltedDueToFileMessage" xml:space="preserve">
-    <value>Operation aborted because the problem has occured with the following sound file: {0}{1}. Please make sure the file exists.</value>
+    <value>Vorgang abgebrochen weil das Problem mit der folgenden Klangdatei aufgetreten hat: {0}{1}. Bitte stellen Sie sicher, dass die Datei vorhanden ist.</value>
   </data>
   <data name="IsBusyMessage" xml:space="preserve">
-    <value>Program busy. In order to do it, you need to wait for the end of the operation first.</value>
+    <value>Programm besetzt. Um dies zu tun, man soll zuerst auf das Ende des Vorgangs warten.</value>
   </data>
   <data name="NoTextToRecordMessage" xml:space="preserve">
-    <value>Enter text to be recorded first.</value>
+    <value>Geben Sie zuerst einen Text zu aufnehmen.</value>
   </data>
   <data name="NoTextToSpellMessage" xml:space="preserve">
-    <value>Enter text to be spelled first.</value>
+    <value>Geben Sie zuerst einen Text zu buchstabieren.</value>
   </data>
   <data name="OptionsButton" xml:space="preserve">
-    <value>_Options</value>
+    <value>_Optionen</value>
   </data>
   <data name="RecordButton" xml:space="preserve">
-    <value>_Record</value>
+    <value>_Aufnehmen</value>
   </data>
   <data name="SavedStatus" xml:space="preserve">
-    <value>Saved.</value>
+    <value>Gespeichert.</value>
   </data>
   <data name="SaveSettingsButton" xml:space="preserve">
-    <value>_Save settings</value>
+    <value>Einstellungen _schreiben</value>
   </data>
   <data name="Speechbank" xml:space="preserve">
-    <value>Speech bank: </value>
+    <value>Sprachdatenbank: </value>
   </data>
   <data name="SpeechbankFolderNotFoundMessage" xml:space="preserve">
-    <value>The speech bank folder called "{0}" has not been found, default setting has been restored.</value>
+    <value>Der Sprachdatenbank-Folder namens "{0}" hat nicht gefunden worden, voreingestellte Einstellung hat wiedergeherstellt worden.</value>
   </data>
   <data name="SpellButton" xml:space="preserve">
-    <value>_Spell</value>
+    <value>_Buchstabieren</value>
   </data>
   <data name="StillWorkingMessage" xml:space="preserve">
-    <value>Unable to do this operation because the previously called one is still in progress. In order to do it, you need to wait for its finish.</value>
+    <value>Kann nicht diesen Vorgang tun weil der zuvor genannte noch im Gange ist. Um dies zu tun, man soll zuerst auf seinen Abschluss warten.</value>
   </data>
   <data name="TextInputColorScheme" xml:space="preserve">
-    <value>Text input colour scheme: </value>
+    <value>Texteingabe-Farbschema: </value>
   </data>
   <data name="WAVEFilesMissingMessage" xml:space="preserve">
-    <value>The file has not been saved successfully because one or more files required to play have not been found.</value>
+    <value>Die Datei hat nicht erfolgreich gespeichert worden denn eine oder mehrere Dateien zu abspielen erforderlich hat nicht gefunden worden.</value>
   </data>
   <data name="AboutCaption" xml:space="preserve">
-    <value>About the program</value>
+    <value>Über das Programm</value>
   </data>
   <data name="BlackAndWhite" xml:space="preserve">
-    <value>Black and white</value>
+    <value>Schwarz-weiß</value>
   </data>
   <data name="Console" xml:space="preserve">
-    <value>Console</value>
+    <value>Konsole</value>
   </data>
   <data name="OptionsCaption" xml:space="preserve">
-    <value>Program options</value>
+    <value>Programmoptionen</value>
   </data>
   <data name="Standard" xml:space="preserve">
     <value>Standard</value>
   </data>
   <data name="WebsiteButton" xml:space="preserve">
-    <value>_Website</value>
+    <value>_Webseite</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>&lt;default&gt;</value>
+    <value>&lt;voreingestellt&gt;</value>
   </data>
   <data name="AboutContent" xml:space="preserve">
-    <value>Program name: {0}
+    <value>Programmnamen: {0}
 Version: {1}
-Author: {2}
+Autor: {2}
 {3}
-Modifying and selling this program is strictly prohibited.
-Special thanks to Mark Heath for NAudio library and Paweł Firlej 
-(http://pfco.de) for lending the voice for the default speech bank.</value>
+Änderung und Verkauf dieses Programm ist streng verboten.
+Besonderen Dank an Mark Heath für NAudio-Bibliothek und Paweł Firlej 
+(http://pfco.de) für die Stimme für der voreingestellten Sprachdatenbank 
+leihen.</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Interface language: </value>
+    <value>Schnittstellensprache: </value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ca" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ChangedLanguageMessage" xml:space="preserve">
-    <value>Another language has just been selected. To see the changes, save current settings now and restart the application.</value>
+    <value>Eine andere Sprache hat gerade ausgewählt worden. Um die Wechseln zu sehen, schreiben Sie jetzt aktuelle Einstellungen und starten Sie die Anwendung neu.</value>
   </data>
   <data name="de" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\de.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NAudioNotFoundMessage" xml:space="preserve">
-    <value>NAudio.dll file required for using the recording feature is missing in the program's directory. Please reinstall this software.</value>
+    <value>Datei NAudio.dll für die Aufnahmefunktion verwenden erforderlich wird im Verzeichnis des Programms fehlt. Bitte installieren Sie diese Software neu.</value>
   </data>
   <data name="pl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FileTypes" xml:space="preserve">
-    <value>Sound files (*.wav)|*.wav|All files|*.*</value>
+    <value>Klangdateien (*.wav)|*.wav|Alle Dateien|*.*</value>
   </data>
   <data name="Website" xml:space="preserve">
-    <value>http://www.komputermania.keed.pl/</value>
+    <value>http://www.komputermania.keed.pl/de</value>
   </data>
   <data name="DeriveFromDefaultSpeechbank" xml:space="preserve">
-    <value>Derive files from the default speech bank if such are missing in the selected one</value>
+    <value>Dateien aus dem voreingestellten Sprachdatenbank ableiten wenn diejenigen werden 
+im gewählten fehlt</value>
   </data>
   <data name="CannotConcatenateDifferentFormatsException" xml:space="preserve">
-    <value>Cannot concatenate sound files that don't share the same format!</value>
+    <value>Kann nicht Klangdateien, die nicht das gleiche Format haben verketten!</value>
   </data>
 </root>

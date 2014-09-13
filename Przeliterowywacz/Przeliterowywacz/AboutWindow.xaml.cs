@@ -58,7 +58,7 @@ namespace Przeliterowywacz
 
         private void DockButton2_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("http://www.komputermania.keed.pl/pl");
+            Process.Start(Properties.Resources.Website);
         }
     }
 }

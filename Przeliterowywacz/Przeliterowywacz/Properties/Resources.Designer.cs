@@ -22,7 +22,7 @@ namespace Przeliterowywacz.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Przeliterowywacz.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Przeliterowywacz.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,345 @@ namespace Przeliterowywacz.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _About.
+        /// </summary>
+        public static string AboutButton {
+            get {
+                return ResourceManager.GetString("AboutButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About the program.
+        /// </summary>
+        public static string AboutCaption {
+            get {
+                return ResourceManager.GetString("AboutCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program name: {0}
+        ///Version: {1}
+        ///Author: {2}
+        ///{3}
+        ///Modifying and selling this program is strictly prohibited.
+        ///Special thanks to Mark Heath for NAudio library and Paweł Firlej 
+        ///(http://pfco.de) for lending the voice for the default speech bank..
+        /// </summary>
+        public static string AboutContent {
+            get {
+                return ResourceManager.GetString("AboutContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Black and white.
+        /// </summary>
+        public static string BlackAndWhite {
+            get {
+                return ResourceManager.GetString("BlackAndWhite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ca {
+            get {
+                object obj = ResourceManager.GetObject("ca", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot concatenate sound files that don&apos;t share the same format!.
+        /// </summary>
+        public static string CannotConcatenateDifferentFormatsException {
+            get {
+                return ResourceManager.GetString("CannotConcatenateDifferentFormatsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Another language has just been selected. To see the changes, save current settings now and restart the application..
+        /// </summary>
+        public static string ChangedLanguageMessage {
+            get {
+                return ResourceManager.GetString("ChangedLanguageMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Console.
+        /// </summary>
+        public static string Console {
+            get {
+                return ResourceManager.GetString("Console", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap de {
+            get {
+                object obj = ResourceManager.GetObject("de", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;default&gt;.
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Derive files from the default speech bank if such are missing in the selected one.
+        /// </summary>
+        public static string DeriveFromDefaultSpeechbank {
+            get {
+                return ResourceManager.GetString("DeriveFromDefaultSpeechbank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable special and punctuation chars (e.g. comma, exclamation mark, asterisk etc.).
+        /// </summary>
+        public static string EnableSpecialChars {
+            get {
+                return ResourceManager.GetString("EnableSpecialChars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorCaption {
+            get {
+                return ResourceManager.GetString("ErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound files (*.wav)|*.wav|All files|*.*.
+        /// </summary>
+        public static string FileTypes {
+            get {
+                return ResourceManager.GetString("FileTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter text to be read here.
+        /// </summary>
+        public static string FirstInput {
+            get {
+                return ResourceManager.GetString("FirstInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation aborted because the problem has occured with the following sound file: {0}{1}. Please make sure the file exists..
+        /// </summary>
+        public static string HaltedDueToFileMessage {
+            get {
+                return ResourceManager.GetString("HaltedDueToFileMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program busy. In order to do it, you need to wait for the end of the operation first..
+        /// </summary>
+        public static string IsBusyMessage {
+            get {
+                return ResourceManager.GetString("IsBusyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interface language: .
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NAudio.dll file required for using the recording feature is missing in the program&apos;s directory. Please reinstall this software..
+        /// </summary>
+        public static string NAudioNotFoundMessage {
+            get {
+                return ResourceManager.GetString("NAudioNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter text to be recorded first..
+        /// </summary>
+        public static string NoTextToRecordMessage {
+            get {
+                return ResourceManager.GetString("NoTextToRecordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter text to be spelled first..
+        /// </summary>
+        public static string NoTextToSpellMessage {
+            get {
+                return ResourceManager.GetString("NoTextToSpellMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Options.
+        /// </summary>
+        public static string OptionsButton {
+            get {
+                return ResourceManager.GetString("OptionsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program options.
+        /// </summary>
+        public static string OptionsCaption {
+            get {
+                return ResourceManager.GetString("OptionsCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap pl {
+            get {
+                object obj = ResourceManager.GetObject("pl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Record.
+        /// </summary>
+        public static string RecordButton {
+            get {
+                return ResourceManager.GetString("RecordButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved..
+        /// </summary>
+        public static string SavedStatus {
+            get {
+                return ResourceManager.GetString("SavedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save settings.
+        /// </summary>
+        public static string SaveSettingsButton {
+            get {
+                return ResourceManager.GetString("SaveSettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speech bank: .
+        /// </summary>
+        public static string Speechbank {
+            get {
+                return ResourceManager.GetString("Speechbank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The speech bank folder called &quot;{0}&quot; has not been found, default setting has been restored..
+        /// </summary>
+        public static string SpeechbankFolderNotFoundMessage {
+            get {
+                return ResourceManager.GetString("SpeechbankFolderNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Spell.
+        /// </summary>
+        public static string SpellButton {
+            get {
+                return ResourceManager.GetString("SpellButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard.
+        /// </summary>
+        public static string Standard {
+            get {
+                return ResourceManager.GetString("Standard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to do this operation because the previously called one is still in progress. In order to do it, you need to wait for its finish..
+        /// </summary>
+        public static string StillWorkingMessage {
+            get {
+                return ResourceManager.GetString("StillWorkingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text input colour scheme: .
+        /// </summary>
+        public static string TextInputColorScheme {
+            get {
+                return ResourceManager.GetString("TextInputColorScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file has not been saved successfully because one or more files required to play have not been found..
+        /// </summary>
+        public static string WAVEFilesMissingMessage {
+            get {
+                return ResourceManager.GetString("WAVEFilesMissingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.komputermania.keed.pl/.
+        /// </summary>
+        public static string Website {
+            get {
+                return ResourceManager.GetString("Website", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Website.
+        /// </summary>
+        public static string WebsiteButton {
+            get {
+                return ResourceManager.GetString("WebsiteButton", resourceCulture);
             }
         }
     }
