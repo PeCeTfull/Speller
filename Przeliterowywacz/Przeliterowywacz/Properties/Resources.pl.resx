@@ -253,4 +253,13 @@ banku mowy.</value>
   <data name="FailedStatus" xml:space="preserve">
     <value>Nie powiodło się.</value>
   </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Tempo: </value>
+  </data>
+  <data name="SAPI5Settings" xml:space="preserve">
+    <value>Ustawienia SAPI5</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Głośność: </value>
+  </data>
 </root>

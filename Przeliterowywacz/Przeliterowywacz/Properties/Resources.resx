@@ -262,4 +262,13 @@ Special thanks to Mark Heath for NAudio library and Paweł Firlej
   <data name="FailedStatus" xml:space="preserve">
     <value>Failed.</value>
   </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Rate: </value>
+  </data>
+  <data name="SAPI5Settings" xml:space="preserve">
+    <value>SAPI5 settings</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Volume: </value>
+  </data>
 </root>

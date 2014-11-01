@@ -17,6 +17,26 @@
                 <CheckBox Name="CheckBox2" Content="{x:Static p:Resources.DeriveFromDefaultSpeechbank}" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Foreground="White" Checked="CheckBox2_Checked" Unchecked="CheckBox2_Unchecked"/>
             </UniformGrid>
         </GroupBox>
+        <GroupBox Header="{x:Static p:Resources.SAPI5Settings}" Margin="0,5,0,0" Foreground="White">
+            <UniformGrid Columns="2" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <DockPanel HorizontalAlignment="Stretch" Margin="0,1,0,0" VerticalAlignment="Top">
+                    <Label Content="{x:Static p:Resources.Rate}" Foreground="White"/>
+                    <TextBox Name="NumberBox1" Width="35" MaxLength="3" TextChanged="NumberBox1_TextChanged"/>
+                    <UniformGrid Rows="2" HorizontalAlignment="Left" Width="13" VerticalAlignment="Top">
+                        <Button Name="buttonOneMore1" Content="▲" Height="13" FontSize="6" Click="buttonOneMore1_Click"/>
+                        <Button Name="buttonOneLess1" Content="▼" Height="13" FontSize="6" Click="buttonOneLess1_Click"/>
+                    </UniformGrid>
+                </DockPanel>
+                <DockPanel HorizontalAlignment="Stretch" Margin="0,1,0,0" VerticalAlignment="Top">
+                    <Label Content="{x:Static p:Resources.Volume}" Foreground="White"/>
+                    <TextBox Name="NumberBox2" Width="35" MaxLength="3" TextChanged="NumberBox2_TextChanged"/>
+                    <UniformGrid Rows="2" HorizontalAlignment="Left" Width="13" VerticalAlignment="Top">
+                        <Button Name="buttonOneMore2" Content="▲" Height="13" FontSize="6" Click="buttonOneMore2_Click"/>
+                        <Button Name="buttonOneLess2" Content="▼" Height="13" FontSize="6" Click="buttonOneLess2_Click"/>
+                    </UniformGrid>
+                </DockPanel>
+            </UniformGrid>
+        </GroupBox>
         <GroupBox Header="{x:Static p:Resources.Use}" Margin="0,3,0,0"  Foreground="White">
             <UniformGrid Columns="2" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <RadioButton Name="RadioButton1" Content="{x:Static p:Resources.Speechbanks}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Checked="RadioButton1_Checked"/>

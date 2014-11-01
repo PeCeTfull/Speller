@@ -33,6 +33,8 @@ namespace Przeliterowywacz
         public bool includeDiacriticalChars = true;
         public bool deriveFromDefaultSpeechbank = false;
         public bool useSapi = false;
+        public Int16 sapiRate = 0;
+        public Int16 sapiVolume = 100;
         public Int16 inputScheme = 0;
         public string currentSpeechbank = "<default>";
         public string currentSapi = "Microsoft Anna";
@@ -59,6 +61,22 @@ namespace Przeliterowywacz
                         deriveFromDefaultSpeechbank = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(28)));
                     else if (srLine.Contains("UseSAPI5="))
                         useSapi = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(9)));
+                    else if (srLine.Contains("Rate="))
+                    {
+                        sapiRate = Convert.ToInt16(srLine.Substring(5));
+                        if (sapiVolume > 10)
+                            sapiVolume = 10;
+                        else if (sapiVolume < -10)
+                            sapiVolume = -10;
+                    }
+                    else if (srLine.Contains("Volume="))
+                    {
+                        sapiVolume = Convert.ToInt16(srLine.Substring(7));
+                        if (sapiVolume > 100)
+                            sapiVolume = 100;
+                        else if (sapiVolume < 0)
+                            sapiVolume = 0;
+                    }
                     else if (srLine.Contains("InputScheme="))
                         inputScheme = Convert.ToInt16(srLine.Substring(12));
                     else if (srLine.Contains("Speechbank="))
@@ -196,6 +214,8 @@ namespace Przeliterowywacz
             try
             {
                 sapi.SelectVoice(currentSapi);
+                sapi.Rate = sapiRate;
+                sapi.Volume = sapiVolume;
             }
             catch (Exception ex)
             {
@@ -278,7 +298,7 @@ namespace Przeliterowywacz
             }
             if (isQuiet)
             {
-                ow = new OptionsWindow(configFileName, includeDiacriticalChars, deriveFromDefaultSpeechbank, useSapi, currentSpeechbank, currentSapi, currentLanguage);
+                ow = new OptionsWindow(configFileName, includeDiacriticalChars, deriveFromDefaultSpeechbank, useSapi, sapiRate, sapiVolume, currentSpeechbank, currentSapi, currentLanguage);
                 ow.Show();
             }
             else
@@ -333,6 +353,8 @@ namespace Przeliterowywacz
                         try
                         {
                             sapi.SelectVoice(currentSapi);
+                            sapi.Rate = sapiRate;
+                            sapi.Volume = sapiVolume;
                             sapi.SetOutputToWaveFile(FD.FileName);
                             for (int i = 0; i < textToRecord.Length; i++)
                                 sapi.Speak(textToRecord.Substring(i, 1));

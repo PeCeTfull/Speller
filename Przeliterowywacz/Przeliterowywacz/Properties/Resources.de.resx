@@ -264,4 +264,13 @@ im gewählten fehlt</value>
   <data name="FailedStatus" xml:space="preserve">
     <value>Fehlgeschlagen.</value>
   </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Tempo: </value>
+  </data>
+  <data name="SAPI5Settings" xml:space="preserve">
+    <value>SAPI5-Einstellungen</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Lautstärke: </value>
+  </data>
 </root>

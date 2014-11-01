@@ -3,7 +3,7 @@ The changelog of Przeliterowywacz
 1.2 Beta 1: 
 * changed the website URL, 
 * correction of a string in German translation (from "Geben Sie hier einen Text zu verlesen an" to "Geben Sie hier einen Text zu verlesen ein"), 
-* SAPI5 speech synthesizers support (both play and record functions are available), 
+* SAPI5 speech synthesizers support (both play and record functions are available) with possibility to change rate and volume, 
 * 32-bit mode preferred – it allows eg. using speech synthesizers not supporting the 64-bit architecture.
 
 1.1.5369.32343: 

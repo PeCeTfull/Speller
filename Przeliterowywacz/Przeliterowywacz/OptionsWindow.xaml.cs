@@ -25,7 +25,7 @@ namespace Przeliterowywacz
         string configFileName;
         bool checkingLanguage;
 
-        public OptionsWindow(string configFileName, bool diacriticalOption, bool derivativeOption, bool sapiOption, string speechbankName, string sapiName, string languageCode)
+        public OptionsWindow(string configFileName, bool diacriticalOption, bool derivativeOption, bool sapiOption, Int16 rateNumber, Int16 volumeNumber, string speechbankName, string sapiName, string languageCode)
         {
             this.configFileName = configFileName;
             InitializeComponent();
@@ -35,6 +35,8 @@ namespace Przeliterowywacz
                 RadioButton2.IsChecked = sapiOption;
             else
                 RadioButton1.IsChecked = !sapiOption;
+            NumberBox1.Text = rateNumber.ToString();
+            NumberBox2.Text = volumeNumber.ToString();
             // Wyszukuje wszystkie podfoldery w folderze Banki i dodaje znalezione elementy do listy dostępnych banków mowy
             ComboBoxItem cbi;
             string[] folderNames = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + "Banki\\");
@@ -134,6 +136,50 @@ namespace Przeliterowywacz
             main.useSapi = true;
         }
 
+        private void NumberBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!Int16.TryParse(NumberBox1.Text, out main.sapiRate))
+                NumberBox1.Text = main.sapiRate.ToString();
+            else if (Convert.ToInt16(NumberBox1.Text) > 10)
+                NumberBox1.Text = "10";
+            else if (Convert.ToInt16(NumberBox1.Text) < -10)
+                NumberBox1.Text = "-10";
+        }
+
+        private void NumberBox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!Int16.TryParse(NumberBox2.Text, out main.sapiVolume))
+                NumberBox2.Text = main.sapiVolume.ToString();
+            else if (Convert.ToInt16(NumberBox2.Text) > 100)
+                NumberBox2.Text = "100";
+            else if (Convert.ToInt16(NumberBox2.Text) < 0)
+                NumberBox2.Text = "0";
+        }
+
+        private void buttonOneMore1_Click(object sender, RoutedEventArgs e)
+        {
+            main.sapiRate++;
+            NumberBox1.Text = main.sapiRate.ToString();
+        }
+
+        private void buttonOneLess1_Click(object sender, RoutedEventArgs e)
+        {
+            main.sapiRate--;
+            NumberBox1.Text = main.sapiRate.ToString();
+        }
+
+        private void buttonOneMore2_Click(object sender, RoutedEventArgs e)
+        {
+            main.sapiVolume++;
+            NumberBox2.Text = main.sapiVolume.ToString();
+        }
+
+        private void buttonOneLess2_Click(object sender, RoutedEventArgs e)
+        {
+            main.sapiVolume--;
+            NumberBox2.Text = main.sapiVolume.ToString();
+        }
+
         private void StyleButton1_Click(object sender, RoutedEventArgs e)
         {
             main.TextBox1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7FFFFFC0"));
@@ -184,7 +230,7 @@ namespace Przeliterowywacz
             if (speechbank == Properties.Resources.Default)
                 speechbank = "<default>";
             var sw = new StreamWriter(new FileStream(configFileName, FileMode.Create), Encoding.UTF8);
-            sw.WriteLine("; Don't modify this file manually! Nie modyfikować tego pliku ręcznie! Modifizieren Sie nicht diese Datei manuell!\r\n[Przeliterowywacz]\r\nLanguage=" + main.currentLanguage + "\r\nIncludeDiacriticalChars=" + Convert.ToInt16(main.includeDiacriticalChars) + "\r\nDeriveFromDefaultSpeechbank=" + Convert.ToInt16(main.deriveFromDefaultSpeechbank) + "\r\nUseSAPI5=" + Convert.ToInt16(main.useSapi) + "\r\nInputScheme=" + main.inputScheme + "\r\nSpeechbank=" + speechbank + "\r\nSAPI5Voice=" + main.currentSapi); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej UTF-8 (poprzednio Windows-1250 - Encoding.GetEncoding(1250))
+            sw.WriteLine("; Don't modify this file manually! Nie modyfikować tego pliku ręcznie! Modifizieren Sie nicht diese Datei manuell!\r\n[Przeliterowywacz]\r\nLanguage=" + main.currentLanguage + "\r\nIncludeDiacriticalChars=" + Convert.ToInt16(main.includeDiacriticalChars) + "\r\nDeriveFromDefaultSpeechbank=" + Convert.ToInt16(main.deriveFromDefaultSpeechbank) + "\r\nUseSAPI5=" + Convert.ToInt16(main.useSapi) + "\r\nRate=" + main.sapiRate + "\r\nVolume=" + main.sapiVolume + "\r\nInputScheme=" + main.inputScheme + "\r\nSpeechbank=" + speechbank + "\r\nSAPI5Voice=" + main.currentSapi); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej UTF-8 (poprzednio Windows-1250 - Encoding.GetEncoding(1250))
             sw.Close();
         }
     }

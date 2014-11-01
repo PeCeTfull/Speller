@@ -304,6 +304,15 @@ namespace Przeliterowywacz.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rate: .
+        /// </summary>
+        public static string Rate {
+            get {
+                return ResourceManager.GetString("Rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Record.
         /// </summary>
         public static string RecordButton {
@@ -318,6 +327,15 @@ namespace Przeliterowywacz.Properties {
         public static string SAPI5Error {
             get {
                 return ResourceManager.GetString("SAPI5Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAPI5 settings.
+        /// </summary>
+        public static string SAPI5Settings {
+            get {
+                return ResourceManager.GetString("SAPI5Settings", resourceCulture);
             }
         }
         
@@ -453,6 +471,15 @@ namespace Przeliterowywacz.Properties {
         public static string Use {
             get {
                 return ResourceManager.GetString("Use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume: .
+        /// </summary>
+        public static string Volume {
+            get {
+                return ResourceManager.GetString("Volume", resourceCulture);
             }
         }
         
