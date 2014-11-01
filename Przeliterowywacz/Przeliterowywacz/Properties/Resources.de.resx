@@ -258,4 +258,10 @@ im gewählten fehlt</value>
   <data name="Use" xml:space="preserve">
     <value>Benutzen</value>
   </data>
+  <data name="SAPI5Error" xml:space="preserve">
+    <value>SAPI5 Fehler: </value>
+  </data>
+  <data name="FailedStatus" xml:space="preserve">
+    <value>Fehlgeschlagen.</value>
+  </data>
 </root>

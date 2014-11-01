@@ -195,6 +195,15 @@ namespace Przeliterowywacz.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed..
+        /// </summary>
+        public static string FailedStatus {
+            get {
+                return ResourceManager.GetString("FailedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sound files (*.wav)|*.wav|All files|*.*.
         /// </summary>
         public static string FileTypes {
@@ -300,6 +309,15 @@ namespace Przeliterowywacz.Properties {
         public static string RecordButton {
             get {
                 return ResourceManager.GetString("RecordButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAPI5 error: .
+        /// </summary>
+        public static string SAPI5Error {
+            get {
+                return ResourceManager.GetString("SAPI5Error", resourceCulture);
             }
         }
         

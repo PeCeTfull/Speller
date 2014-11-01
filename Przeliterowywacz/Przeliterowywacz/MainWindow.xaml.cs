@@ -232,7 +232,10 @@ namespace Przeliterowywacz
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format(Properties.Resources.HaltedDueToFileMessage, AppDomain.CurrentDomain.BaseDirectory, waveFileName), Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                if (!useSapi)
+                    MessageBox.Show(String.Format(Properties.Resources.HaltedDueToFileMessage, AppDomain.CurrentDomain.BaseDirectory, waveFileName), Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                else
+                    MessageBox.Show(Properties.Resources.SAPI5Error + ex.Message, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
             }
             isQuiet = true;
         }
@@ -325,12 +328,21 @@ namespace Przeliterowywacz
                             }
                         }
                     }
-                    else //DO ZIMPLEMENTOWANIA: Zapisywanie nagrań SAPI5
+                    else //Zapisywanie nagrań SAPI5
                     {
-                        sapi.SetOutputToWaveFile(FD.FileName);
-                        for (int i = 0; i < textToRecord.Length; i++)
-                            sapi.Speak(textToRecord.Substring(i, 1));
-                        sapi.SetOutputToDefaultAudioDevice();
+                        try
+                        {
+                            sapi.SelectVoice(currentSapi);
+                            sapi.SetOutputToWaveFile(FD.FileName);
+                            for (int i = 0; i < textToRecord.Length; i++)
+                                sapi.Speak(textToRecord.Substring(i, 1));
+                            sapi.SetOutputToDefaultAudioDevice();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(Properties.Resources.SAPI5Error + ex.Message, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                            wasFailed = true;
+                        }
                     }
 
                     if (!wasFailed)
@@ -345,7 +357,13 @@ namespace Przeliterowywacz
                         }
                     }
                     else
-                        MessageBox.Show(Properties.Resources.WAVEFilesMissingMessage, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                    {
+                        if (!useSapi)
+                            MessageBox.Show(Properties.Resources.WAVEFilesMissingMessage, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                        StatusLabel.Content = Properties.Resources.FailedStatus;
+                        await Task.Delay(5000);
+                        StatusLabel.Content = "";
+                    }
                 }
             }
             else

@@ -256,4 +256,10 @@ Special thanks to Mark Heath for NAudio library and Paweł Firlej
   <data name="Use" xml:space="preserve">
     <value>Use</value>
   </data>
+  <data name="SAPI5Error" xml:space="preserve">
+    <value>SAPI5 error: </value>
+  </data>
+  <data name="FailedStatus" xml:space="preserve">
+    <value>Failed.</value>
+  </data>
 </root>
