@@ -2,39 +2,116 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DiacriticBuster
 {
     public partial class OptionsForm : Form
     {
+        //MainForm mf = (MainForm)Form.ActiveForm; // this way is incompatible with VS breakpoints and makes the debugging application crash
         MainForm mf = (MainForm)Application.OpenForms[0];
+        string activeLanguage;
+        string selectedLanguage;
 
-        public OptionsForm()
+        public OptionsForm(string language)
         {
+            activeLanguage = language;
+            selectedLanguage = activeLanguage;
             InitializeComponent();
-            listBox1.Items.Add("<none>");
-            //insert all the schemes found inside Schemes folder into "Available schemes" list
+            listBox1.Items.Add(Properties.Resources.Default);
+            // insert all the schemes found inside Schemes folder into "Available schemes" list
             DirectoryInfo schemes = new DirectoryInfo(Environment.CurrentDirectory + "\\Schemes");
             FileInfo[] files = schemes.GetFiles("*.txt");
             foreach (FileInfo file in files)
                 listBox1.Items.Add(file.Name.Substring(0, file.Name.Length - 4));
-            //select the currently chosen scheme
-            listBox1.SelectedItem = mf.ReturnCurrentSchemeName();
+            // select the currently chosen scheme
+            for (int i = 0; i < listBox1.Items.Count; i++)
+            {
+                listBox1.SelectedIndex = i;
+                if (listBox1.SelectedItem.ToString() == mf.ReturnCurrentSchemeName())
+                    break;
+                else
+                    listBox1.SelectedIndex = 0;
+            }
+            // determine which program language is currently being used
+            if (activeLanguage.IndexOf("pl") > -1)
+                radioButton2.Checked = true;
+            else if (activeLanguage.IndexOf("de") > -1)
+                radioButton3.Checked = true;
+            else
+                radioButton1.Checked = true;
+        }
+
+        private void ApplySettings()
+        {
+            if (selectedLanguage != activeLanguage)
+            {
+                mf.ChangeLanguage(selectedLanguage);
+                activeLanguage = selectedLanguage;
+            }
+            mf.ChangeSchemePublicInfo(listBox1.SelectedItem.ToString());
+            string scheme = mf.ReturnCurrentSchemeName();
+            if (scheme == Properties.Resources.Default)
+                scheme = "<default>";
+            var sw = new StreamWriter(new FileStream(mf.ReturnConfigFileName(), FileMode.Create), Encoding.UTF8);
+            sw.WriteLine("; Don't modify this file manually! Nie modyfikować tego pliku ręcznie! Modifizieren Sie nicht diese Datei manuell!\r\n[" + FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).ProductName + "]\r\nLanguage=" + selectedLanguage + "\r\nScheme=" + scheme); // rewriting the configuration into the file using UTF-8 conversion
+            sw.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mf.ChangeSchemePublicInfo(listBox1.SelectedItem.ToString());
+            ApplySettings();
             this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ApplySettings();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex == 0)
+                button4.Enabled = false;
+            else
+                button4.Enabled = true;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+                selectedLanguage = "en-CA";
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+                selectedLanguage = "pl-PL";
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton3.Checked)
+                selectedLanguage = "de-DE";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string schemeFileLocation = Environment.CurrentDirectory + "\\Schemes\\" + listBox1.SelectedItem.ToString() + ".txt";
+            if (File.Exists(schemeFileLocation))
+                File.Delete(schemeFileLocation);
+            listBox1.Items.Remove(listBox1.SelectedItem);
         }
     }
 }

@@ -117,32 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Tekst pierwotny: </value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 13</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Tekst ostateczny: </value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>&amp;Konwertuj</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>&amp;Opcje</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 13</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Obecny schemat: </value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>O &amp;programie</value>
+  <data name="Default" xml:space="preserve">
+    <value>&lt;domyślny&gt;</value>
   </data>
 </root>

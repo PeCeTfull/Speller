@@ -7,12 +7,12 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Diacritic Buster")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Transforms diacritical chars in a piece of text into their close equivalents")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PeCeT_full")]
 [assembly: AssemblyProduct("Diacritic Buster")]
 [assembly: AssemblyCopyright("Copyright © PeCeT_full 2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("All Rights Reserved")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.*")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.2.*")]
+[assembly: AssemblyFileVersion("0.2.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("")]

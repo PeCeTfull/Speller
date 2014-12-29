@@ -117,32 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppDateLabel.Text" xml:space="preserve">
+    <value>Utworzono %builddate%</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
+  <data name="SysInfoButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 245</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Tekst pierwotny: </value>
+  <data name="SysInfoButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 23</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 13</value>
+  <data name="SysInfoButton.Text" xml:space="preserve">
+    <value>&amp;Informacje o systemie...</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Tekst ostateczny: </value>
+  <data name="AppVersionLabel.Text" xml:space="preserve">
+    <value>Wersja %version%</value>
   </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>&amp;Konwertuj</value>
+  <data name="AppDescriptionLabel.Text" xml:space="preserve">
+    <value>Przekształca znaki diakrytyczne w tekście w ich bliskie odpowiedniki</value>
   </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>&amp;Opcje</value>
+  <data name="MoreRichTextBox.Text" xml:space="preserve">
+    <value>%product% jest chroniony prawem autorskim © przez %company%, %year%, wszelkie prawa zastrzeżone. Modyfikowanie oraz sprzedawanie tego programu jest surowo zabronione.</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 13</value>
+  <data name="DetailsButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 245</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Obecny schemat: </value>
+  <data name="DetailsButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 23</value>
   </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>O &amp;programie</value>
+  <data name="DetailsButton.Text" xml:space="preserve">
+    <value>&amp;Szczegóły &gt;&gt;</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>O programie %title%</value>
   </data>
 </root>
