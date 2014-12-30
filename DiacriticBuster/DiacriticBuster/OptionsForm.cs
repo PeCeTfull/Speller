@@ -26,7 +26,7 @@ namespace DiacriticBuster
             InitializeComponent();
             listBox1.Items.Add(Properties.Resources.Default);
             // insert all the schemes found inside Schemes folder into "Available schemes" list
-            DirectoryInfo schemes = new DirectoryInfo(Environment.CurrentDirectory + "\\Schemes");
+            DirectoryInfo schemes = new DirectoryInfo(mf.ReturnSchemesDirectoryName());
             FileInfo[] files = schemes.GetFiles("*.txt");
             foreach (FileInfo file in files)
                 listBox1.Items.Add(file.Name.Substring(0, file.Name.Length - 4));
@@ -48,12 +48,18 @@ namespace DiacriticBuster
                 radioButton1.Checked = true;
         }
 
+        private void ShowNoSchemeSelectedMessageBox()
+        {
+            MessageBox.Show(Properties.Resources.NoSchemeSelectedMessage, FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
         private void ApplySettings()
         {
             if (selectedLanguage != activeLanguage)
             {
                 mf.ChangeLanguage(selectedLanguage);
                 activeLanguage = selectedLanguage;
+                MessageBox.Show(Properties.Resources.ChangedLanguageMessage, FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             mf.ChangeSchemePublicInfo(listBox1.SelectedItem.ToString());
             string scheme = mf.ReturnCurrentSchemeName();
@@ -66,8 +72,13 @@ namespace DiacriticBuster
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ApplySettings();
-            this.Close();
+            if (listBox1.SelectedItem != null)
+            {
+                ApplySettings();
+                this.Close();
+            }
+            else
+                ShowNoSchemeSelectedMessageBox();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -77,7 +88,10 @@ namespace DiacriticBuster
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ApplySettings();
+            if (listBox1.SelectedItem != null)
+                ApplySettings();
+            else
+                ShowNoSchemeSelectedMessageBox();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -108,10 +122,60 @@ namespace DiacriticBuster
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string schemeFileLocation = Environment.CurrentDirectory + "\\Schemes\\" + listBox1.SelectedItem.ToString() + ".txt";
+            string schemeFileLocation = mf.ReturnSchemesDirectoryName() + listBox1.SelectedItem.ToString() + ".txt";
             if (File.Exists(schemeFileLocation))
                 File.Delete(schemeFileLocation);
             listBox1.Items.Remove(listBox1.SelectedItem);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var FD = new System.Windows.Forms.OpenFileDialog();
+            FD.DefaultExt = "txt";
+            FD.ValidateNames = true;
+            FD.Filter = Properties.Resources.FileTypes;
+            if (FD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (File.Exists(FD.FileName))
+                {
+                    // Scheme file compatibility check
+                    var sr = new StreamReader(FD.FileName);
+                    string srLine;
+                    int i = 0;
+                    bool isPassed = true; // a variable determining if the test is passed
+                    while ((srLine = sr.ReadLine()) != null)
+                    {
+                        if (srLine.Length > 0 && (srLine.IndexOf('|') == -1 || srLine.IndexOf('|') != srLine.LastIndexOf('|'))) // there must be only one single '|' char per line
+	                    {
+                            isPassed = false; // TEST NOT PASSED
+		                    break;
+	                    }
+                        i++;
+                    }
+                    sr.Close();
+                    // Importing process
+                    if (isPassed)
+                    {
+                        string destinationFileName = mf.ReturnSchemesDirectoryName() + FD.SafeFileName;
+                        if (File.Exists(destinationFileName))
+                        {
+                            var overwriteMB = MessageBox.Show(Properties.Resources.OverwriteFileMessage, FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetEntryAssembly().Location).ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (overwriteMB == DialogResult.Yes)
+                                File.Copy(FD.FileName, destinationFileName, true);
+                        }
+                        else
+                        {
+                            File.Copy(FD.FileName, destinationFileName);
+                            if (File.Exists(destinationFileName))
+                                listBox1.Items.Add(FD.SafeFileName.Split('.')[0]);
+                        }
+                    }
+                    else
+                        MessageBox.Show(Properties.Resources.SchemeFileNotValidMessage, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                }
+                else
+                    MessageBox.Show(Properties.Resources.FileNotFoundMessage, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
         }
     }
 }

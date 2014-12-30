@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChangedLanguageMessage" xml:space="preserve">
+    <value>Eine andere Sprache hat gerade ausgewählt worden. Um alle Änderungen zu übernehmen, starten Sie bitte die Anwendung neu.</value>
+  </data>
   <data name="Default" xml:space="preserve">
     <value>&lt;voreingestellt&gt;</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="FileNotFoundMessage" xml:space="preserve">
+    <value>Datei nicht gefunden.</value>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>Schemadateien (*.txt)|*.txt|Alle Dateien|*.*</value>
+  </data>
+  <data name="NoSchemeSelectedMessage" xml:space="preserve">
+    <value>Sie haben kein Schema aus der Liste ausgewählt. Bitte wählen Sie einer von ihnen zuerst.</value>
+  </data>
+  <data name="OverwriteFileMessage" xml:space="preserve">
+    <value>Wollen Sie die vorhandene Datei überschreiben?</value>
+  </data>
+  <data name="SchemeFileNotValidMessage" xml:space="preserve">
+    <value>Die Importdatei ist keine gültige Schemadatei.</value>
   </data>
 </root>

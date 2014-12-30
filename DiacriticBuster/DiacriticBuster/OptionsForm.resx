@@ -333,7 +333,7 @@
     <value>5</value>
   </data>
   <data name="button3.Text" xml:space="preserve">
-    <value>A&amp;pply</value>
+    <value>&amp;Apply</value>
   </data>
   <data name="&gt;&gt;button3.Name" xml:space="preserve">
     <value>button3</value>
@@ -381,7 +381,7 @@
     <value>7</value>
   </data>
   <data name="button5.Text" xml:space="preserve">
-    <value>&amp;Add</value>
+    <value>&amp;Import</value>
   </data>
   <data name="&gt;&gt;button5.Name" xml:space="preserve">
     <value>button5</value>

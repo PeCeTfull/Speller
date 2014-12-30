@@ -137,7 +137,7 @@
     <value>&amp;Löschen</value>
   </data>
   <data name="button5.Text" xml:space="preserve">
-    <value>&amp;Hinzufügen</value>
+    <value>&amp;Importieren</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Programmoptionen</value>

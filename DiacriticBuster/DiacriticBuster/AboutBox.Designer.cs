@@ -133,16 +133,16 @@ namespace DiacriticBuster
             // 
             // TabPageApplication
             // 
-            resources.ApplyResources(this.TabPageApplication, "TabPageApplication");
             this.TabPageApplication.Controls.Add(this.AppInfoListView);
+            resources.ApplyResources(this.TabPageApplication, "TabPageApplication");
             this.TabPageApplication.Name = "TabPageApplication";
             // 
             // AppInfoListView
             // 
-            resources.ApplyResources(this.AppInfoListView, "AppInfoListView");
             this.AppInfoListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colKey,
             this.colValue});
+            resources.ApplyResources(this.AppInfoListView, "AppInfoListView");
             this.AppInfoListView.FullRowSelect = true;
             this.AppInfoListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.AppInfoListView.Name = "AppInfoListView";
@@ -159,18 +159,18 @@ namespace DiacriticBuster
             // 
             // TabPageAssemblies
             // 
-            resources.ApplyResources(this.TabPageAssemblies, "TabPageAssemblies");
             this.TabPageAssemblies.Controls.Add(this.AssemblyInfoListView);
+            resources.ApplyResources(this.TabPageAssemblies, "TabPageAssemblies");
             this.TabPageAssemblies.Name = "TabPageAssemblies";
             // 
             // AssemblyInfoListView
             // 
-            resources.ApplyResources(this.AssemblyInfoListView, "AssemblyInfoListView");
             this.AssemblyInfoListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colAssemblyName,
             this.colAssemblyVersion,
             this.colAssemblyBuilt,
             this.colAssemblyCodeBase});
+            resources.ApplyResources(this.AssemblyInfoListView, "AssemblyInfoListView");
             this.AssemblyInfoListView.FullRowSelect = true;
             this.AssemblyInfoListView.MultiSelect = false;
             this.AssemblyInfoListView.Name = "AssemblyInfoListView";
@@ -198,17 +198,17 @@ namespace DiacriticBuster
             // 
             // TabPageAssemblyDetails
             // 
-            resources.ApplyResources(this.TabPageAssemblyDetails, "TabPageAssemblyDetails");
             this.TabPageAssemblyDetails.Controls.Add(this.AssemblyDetailsListView);
             this.TabPageAssemblyDetails.Controls.Add(this.AssemblyNamesComboBox);
+            resources.ApplyResources(this.TabPageAssemblyDetails, "TabPageAssemblyDetails");
             this.TabPageAssemblyDetails.Name = "TabPageAssemblyDetails";
             // 
             // AssemblyDetailsListView
             // 
-            resources.ApplyResources(this.AssemblyDetailsListView, "AssemblyDetailsListView");
             this.AssemblyDetailsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader1,
             this.ColumnHeader2});
+            resources.ApplyResources(this.AssemblyDetailsListView, "AssemblyDetailsListView");
             this.AssemblyDetailsListView.FullRowSelect = true;
             this.AssemblyDetailsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.AssemblyDetailsListView.Name = "AssemblyDetailsListView";
@@ -259,6 +259,7 @@ namespace DiacriticBuster
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBox";
+            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Load += new System.EventHandler(this.AboutBox_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AboutBox_Paint);

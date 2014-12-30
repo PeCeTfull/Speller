@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChangedLanguageMessage" xml:space="preserve">
+    <value>Właśnie został wybrany inny język. Aby wszelkie zmiany zostały odzwierciedlone, proszę zrestartować aplikację.</value>
+  </data>
   <data name="Default" xml:space="preserve">
     <value>&lt;domyślny&gt;</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="FileNotFoundMessage" xml:space="preserve">
+    <value>Nie znaleziono pliku.</value>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>Pliki schematu (*.txt)|*.txt|Wszystkie pliki|*.*</value>
+  </data>
+  <data name="NoSchemeSelectedMessage" xml:space="preserve">
+    <value>Nie wybrałeś żadnego schematu z listy. Proszę najpierw zaznaczyć jeden z nich.</value>
+  </data>
+  <data name="OverwriteFileMessage" xml:space="preserve">
+    <value>Czy chcesz nadpisać istniejący plik?</value>
+  </data>
+  <data name="SchemeFileNotValidMessage" xml:space="preserve">
+    <value>Importowany plik nie jest prawidłowym plikiem schematu.</value>
   </data>
 </root>

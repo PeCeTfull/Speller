@@ -61,11 +61,74 @@ namespace DiacriticBuster.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Another language has just been selected. To reflect all the changes, please restart the application..
+        /// </summary>
+        internal static string ChangedLanguageMessage {
+            get {
+                return ResourceManager.GetString("ChangedLanguageMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;default&gt;.
         /// </summary>
         internal static string Default {
             get {
                 return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found..
+        /// </summary>
+        internal static string FileNotFoundMessage {
+            get {
+                return ResourceManager.GetString("FileNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheme files (*.txt)|*.txt|All files|*.*.
+        /// </summary>
+        internal static string FileTypes {
+            get {
+                return ResourceManager.GetString("FileTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not chosen any scheme from the list. Please select one of them first..
+        /// </summary>
+        internal static string NoSchemeSelectedMessage {
+            get {
+                return ResourceManager.GetString("NoSchemeSelectedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to overwrite the existing file?.
+        /// </summary>
+        internal static string OverwriteFileMessage {
+            get {
+                return ResourceManager.GetString("OverwriteFileMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The import file is not a valid scheme file..
+        /// </summary>
+        internal static string SchemeFileNotValidMessage {
+            get {
+                return ResourceManager.GetString("SchemeFileNotValidMessage", resourceCulture);
             }
         }
     }

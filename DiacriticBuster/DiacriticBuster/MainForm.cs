@@ -14,12 +14,13 @@ namespace DiacriticBuster
 {
     public partial class MainForm : Form
     {
-        public const string configFileName = "DiacriticBuster.ini"; // the configuration filename
+        const string configFileName = "DiacriticBuster.ini"; // the configuration filename
         // DEFAULT CONFIGURATION
         string currentScheme = Properties.Resources.Default;
         string currentLanguage = "en-CA";
 
         // FORM'S 'PERSONAL' OPTIONS
+        string schemesDirectory = Environment.CurrentDirectory + "\\Schemes\\";
         int currentSchemeBasicStringLength;
         Dictionary<string, string> currentDiacriticDealingMethods = new Dictionary<string,string>();
 
@@ -28,7 +29,7 @@ namespace DiacriticBuster
             if (currentScheme != "<default>")
             {
                 currentDiacriticDealingMethods.Clear();
-                string schemeFileLocation = Environment.CurrentDirectory + "\\Schemes\\" + currentScheme + ".txt";
+                string schemeFileLocation = schemesDirectory + currentScheme + ".txt";
                 if (File.Exists(schemeFileLocation))
                 {
                     var sr = new StreamReader(schemeFileLocation);
@@ -92,6 +93,11 @@ namespace DiacriticBuster
             currentSchemeBasicStringLength = this.label3.Text.Length;
             this.label3.Text += currentScheme;
             //ChangeLanguage("en");
+        }
+
+        public string ReturnSchemesDirectoryName()
+        {
+            return schemesDirectory;
         }
 
         public string ReturnCurrentSchemeName()
@@ -165,18 +171,13 @@ namespace DiacriticBuster
                 of = null;
             }
             of = new OptionsForm(currentLanguage);
-            of.Show();
+            of.Show(this);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (ab != null)
-            {
-                ab.Close();
-                ab = null;
-            }
             ab = new AboutBox();
-            ab.Show();
+            ab.ShowDialog(this);
         }
     }
 }
