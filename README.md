@@ -51,7 +51,7 @@ Speller allows to change the following settings:
 
 * Text input colour scheme – it is used to change the appearance of the area designed for typing text to be read. Three schemes are available to choose from: standard, black & white and console.
 
-* Speech bank – from the list here, you can choose any speech bank, that is a set containing the files with the *.wav extension with distinct pronunciation of individual chars. Such the created list is based on the subfolders with files in the "Banki" folder placed inside the program's home directory found by the application where the subfolder is a bank named like this, yet the default speech bank itself is basically all the sound files that are located in the main directory of "Banki".
+* Speech bank – from the list here, you can choose any speech bank, that is a set containing the files with the *.wav extension with distinct pronunciation of individual chars. Such the created list is based on the subfolders with files in the "Banks" folder placed inside the program's home directory found by the application where the subfolder is a bank named like this, yet the default speech bank itself is basically all the sound files that are located in the main directory of "Banks".
 
 * SAPI5 voice – you can select here any SAPI5 synthesizer that is already installed in your system.
 
