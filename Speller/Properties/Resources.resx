@@ -231,9 +231,6 @@ the voice for the Polish speech bank.</value>
   <data name="DeriveFromDefaultSpeechbank" xml:space="preserve">
     <value>Derive files from the default speech bank if such are missing in the selected one</value>
   </data>
-  <data name="CannotConcatenateDifferentFormatsException" xml:space="preserve">
-    <value>Cannot concatenate sound files that don't share the same format!</value>
-  </data>
   <data name="SAPI5Synthesis" xml:space="preserve">
     <value>SAPI5 synthesis</value>
   </data>

@@ -222,9 +222,6 @@ za użyczenie głosu do polskiego banku mowy.</value>
   <data name="DeriveFromDefaultSpeechbank" xml:space="preserve">
     <value>Zapożyczaj pliki z domyślnego banku mowy, jeśli takowych brakuje w wybranym</value>
   </data>
-  <data name="CannotConcatenateDifferentFormatsException" xml:space="preserve">
-    <value>Nie można powiązać plików dźwiękowych nie będących tego samego formatu!</value>
-  </data>
   <data name="BanksFolderNotFound" xml:space="preserve">
     <value>NIE ZNALEZIONO FOLDERU „Banks”</value>
   </data>

@@ -231,9 +231,6 @@ für die Stimme für der polnischen Sprachdatenbank leihen.</value>
   <data name="DeriveFromDefaultSpeechbank" xml:space="preserve">
     <value>Dateien aus dem voreingestellten Sprachdatenbank ableiten wenn diejenigen werden im gewählten fehlt</value>
   </data>
-  <data name="CannotConcatenateDifferentFormatsException" xml:space="preserve">
-    <value>Kann nicht Klangdateien, die nicht das gleiche Format haben verketten!</value>
-  </data>
   <data name="BanksFolderNotFound" xml:space="preserve">
     <value>„Banks”-ORDNER NICHT GEFUNDEN</value>
   </data>
@@ -331,7 +328,7 @@ für die Stimme für der polnischen Sprachdatenbank leihen.</value>
     <value>Verzögerung zwischen gesprochenem Zeichen: </value>
   </data>
   <data name="SpellWithAltSHotkey" xml:space="preserve">
-    <value>Der Inhalt der Zwischenablage mit der Tastenkombination Alt+C buchstabieren</value>
+    <value>Der Inhalt der Zwischenablage mit der Tastenkombination Alt+S buchstabieren</value>
   </data>
   <data name="Speller" xml:space="preserve">
     <value>Buchstabierer (Speller)</value>

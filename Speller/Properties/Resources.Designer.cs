@@ -142,15 +142,6 @@ namespace Speller.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot concatenate sound files that don&apos;t share the same format!.
-        /// </summary>
-        public static string CannotConcatenateDifferentFormatsException {
-            get {
-                return ResourceManager.GetString("CannotConcatenateDifferentFormatsException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Another language has just been selected. To see the changes, save current settings now and restart the application..
         /// </summary>
         public static string ChangedLanguageMessage {
