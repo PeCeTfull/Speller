@@ -11,6 +11,10 @@ Speller is intuitive to use and has a simple interface. In order to make the pro
 Speller allows to change the following settings: 
 
 * [Soundbanks only] Enable special and punctuation chars (e.g. comma, exclamation mark, asterisk etc.) – leaving this option marked causes that in any spoken text the following special characters will be taken into account: . , : ; ! ? ' " \ / % * | < > = whereas having it unmarked will make them omitted during reading. Keep in mind, however, that each of these characters corresponds to the file name other than its symbol, thus: 
+
+```
+#!
+
 . – period.wav, 
 , – comma.wav, 
 : – colon.wav, 
@@ -27,6 +31,7 @@ Speller allows to change the following settings:
 < – less_than.wav, 
 > – greater_than.wav, 
 = – equal.wav.
+```
 
 * [Soundbanks only] Derive files from the default speech bank if such are missing in the selected one - this options causes uttered characters being played or recorded from the default speech bank once if their equivalents are missing in the currently selected one by the user.
 
