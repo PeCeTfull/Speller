@@ -20,30 +20,50 @@ using System.Windows.Markup;
 using NAudio;
 using NAudio.Wave;
 using System.Speech.Synthesis;
+using System.Diagnostics;
+using System.Windows.Interop;
+using System.Speech.AudioFormat;
 
-namespace Przeliterowywacz
+namespace Speller
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const string configFileName = "Przeliterowywacz.ini"; // nazwa pliku konfiguracyjnego
-        // Konfiguracja domyślna
+        public const string configFileName = "Speller.ini"; // the config file name
+        // Default configuration
         public bool includeDiacriticalChars = true;
         public bool deriveFromDefaultSpeechbank = false;
-        public bool useSapi = false;
         public bool readZeroAsO = false;
+        public bool spellWithAltSHotkey = true;
         public Int16 sapiRate = 0;
         public Int16 sapiVolume = 100;
+        public int sampleRate = 44100;
+        public Int16 bitDepth = 16;
+        public Int16 channels = 1;
+        public int delayBetweenCharsInMs = 0;
+        public bool useSapi = false;
         public Int16 inputScheme = 0;
         public string currentSpeechbank = "<default>";
         public string currentSapi = "Microsoft Anna";
         public string currentLanguage = "en";
 
+        IntPtr hWnd;
+
+        public void RegisterAltSHotkey()
+        {
+            User32.RegisterHotKey(hWnd, 0, (int)User32.KeyModifier.Alt, (int)User32.Keys.S);
+        }
+
+        public void UnregisterAltSHotkey()
+        {
+            User32.UnregisterHotKey(hWnd, 0);
+        }
+
         public MainWindow()
         {
-            if (File.Exists(configFileName)) // Odczytywanie pliku konfiguracyjnego (o ile istnieje)
+            if (File.Exists(configFileName)) // Reading the configuration file (if it exists)
             {
                 var sr = new StreamReader(configFileName);
                 string srLine;
@@ -60,17 +80,17 @@ namespace Przeliterowywacz
                         includeDiacriticalChars = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(24)));
                     else if (srLine.Contains("DeriveFromDefaultSpeechbank="))
                         deriveFromDefaultSpeechbank = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(28)));
-                    else if (srLine.Contains("UseSAPI5="))
-                        useSapi = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(9)));
                     else if (srLine.Contains("ReadZeroAsO="))
                         readZeroAsO = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(12)));
-                    else if (srLine.Contains("Rate="))
+                    else if (srLine.Contains("SpellWithAltSHotkey="))
+                        spellWithAltSHotkey = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(20)));
+                    else if (!srLine.Contains("SampleRate=") && srLine.Contains("Rate="))
                     {
                         sapiRate = Convert.ToInt16(srLine.Substring(5));
-                        if (sapiVolume > 10)
-                            sapiVolume = 10;
-                        else if (sapiVolume < -10)
-                            sapiVolume = -10;
+                        if (sapiRate > 10)
+                            sapiRate = 10;
+                        else if (sapiRate < -10)
+                            sapiRate = -10;
                     }
                     else if (srLine.Contains("Volume="))
                     {
@@ -80,6 +100,16 @@ namespace Przeliterowywacz
                         else if (sapiVolume < 0)
                             sapiVolume = 0;
                     }
+                    else if (srLine.Contains("SampleRate="))
+                        sampleRate = Convert.ToInt32(srLine.Substring(11));
+                    else if (srLine.Contains("BitDepth="))
+                        bitDepth = Convert.ToInt16(srLine.Substring(9));
+                    else if (srLine.Contains("Channels="))
+                        channels = Convert.ToInt16(srLine.Substring(9));
+                    else if (srLine.Contains("UseSAPI5="))
+                        useSapi = Convert.ToBoolean(Convert.ToInt16(srLine.Substring(9)));
+                    else if (srLine.Contains("DelayBetweenCharsInMs="))
+                        delayBetweenCharsInMs = Convert.ToInt32(srLine.Substring(22));
                     else if (srLine.Contains("InputScheme="))
                         inputScheme = Convert.ToInt16(srLine.Substring(12));
                     else if (srLine.Contains("Speechbank="))
@@ -98,24 +128,21 @@ namespace Przeliterowywacz
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(currentLanguage);
                 CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(currentLanguage);
                 FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-                //var sw = new StreamWriter(new FileStream(configFileName, FileMode.CreateNew), Encoding.UTF8);
-                //sw.WriteLine("; Don't modify this file manually! Nie modyfikować tego pliku ręcznie! Modifizieren Sie nicht diese Datei manuell!\r\n[Przeliterowywacz]\r\nLanguage=en\r\nIncludeDiacriticalChars=1\r\nDeriveFromDefaultSpeechbank=0\r\nInputScheme=0\r\nSpeechbank=<default>"); // Spisywanie konfiguracji domyślnej na plik o stronie kodowej Windows-1250
-                //sw.Close();
             }
             InitializeComponent();
             if (inputScheme == 1)
             {
-                TextBox1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
-                TextBox1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
+                MainTextBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
+                MainTextBox.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
             }
             else if (inputScheme == 2)
             {
-                TextBox1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
-                TextBox1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00FF00"));
+                MainTextBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
+                MainTextBox.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00FF00"));
             }
-            if (!File.Exists("NAudio.dll")) // Sprawdzanie, czy w katalogu programu jest biblioteka NAudio.dll
+            if (!File.Exists("NAudio.dll")) // Looking up for NAudio.dll in the program's directory
             {
-                MenuItem2.IsEnabled = false;
+                RecordMenuItem.IsEnabled = false;
                 MessageBox.Show(Properties.Resources.NAudioNotFoundMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
@@ -125,9 +152,12 @@ namespace Przeliterowywacz
         AboutWindow aw;
         Thread T1;
         SpeechSynthesizer sapi = new SpeechSynthesizer();
+        WaveStream waveStream;
+        WaveOut waveOut;
 
-        public static void Concatenate(string outputFile, IEnumerable<string> sourceFiles)
+        public void Concatenate(string outputFile, IEnumerable<string> sourceFiles)
         {
+            WaveFormat targetWaveFormat = new WaveFormat(sampleRate, bitDepth, channels);
             byte[] buffer = new byte[1024];
             WaveFileWriter waveFileWriter = null;
 
@@ -135,19 +165,17 @@ namespace Przeliterowywacz
             {
                 foreach (string sourceFile in sourceFiles)
                 {
-                    using (WaveFileReader reader = new WaveFileReader(sourceFile))
+                    using (WaveStream reader = WaveFormatConversionStream.CreatePcmStream(new WaveFileReader(sourceFile)))
                     {
                         if (waveFileWriter == null)
-                            waveFileWriter = new WaveFileWriter(outputFile, reader.WaveFormat);
-                        else
-                        {
-                            if (!reader.WaveFormat.Equals(waveFileWriter.WaveFormat))
-                                throw new InvalidOperationException(Properties.Resources.CannotConcatenateDifferentFormatsException);
-                        }
+                            waveFileWriter = new WaveFileWriter(outputFile, targetWaveFormat);
 
-                        int read;
-                        while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
-                            waveFileWriter.WriteData(buffer, 0, read);
+                        using (var conversionStream = new WaveFormatConversionStream(targetWaveFormat, reader))
+                        {
+                            int read;
+                            while ((read = conversionStream.Read(buffer, 0, buffer.Length)) > 0)
+                                waveFileWriter.WriteData(buffer, 0, read);
+                        }
                     }
                 }
             }
@@ -158,9 +186,9 @@ namespace Przeliterowywacz
             }
         }
 
-        public string specifyFileName(int i, string toBeSaid)
+        public string SpecifyFileName(int i, string toBeSaid)
         {
-            string fileName = "Banki\\";
+            string fileName = "Banks\\";
             if (currentSpeechbank != Properties.Resources.Default)
                 fileName += currentSpeechbank + '\\';
             if (toBeSaid.Substring(i, 1) == " ")
@@ -172,37 +200,37 @@ namespace Przeliterowywacz
                 if (includeDiacriticalChars)
                 {
                     if (toBeSaid.Substring(i, 1) == ".")
-                        fileName += "kropka.wav";
+                        fileName += "period.wav";
                     else if (toBeSaid.Substring(i, 1) == ",")
-                        fileName += "przecinek.wav";
+                        fileName += "comma.wav";
                     else if (toBeSaid.Substring(i, 1) == ":")
-                        fileName += "dwukropek.wav";
+                        fileName += "colon.wav";
                     else if (toBeSaid.Substring(i, 1) == ";")
-                        fileName += "srednik.wav";
+                        fileName += "semicolon.wav";
                     else if (toBeSaid.Substring(i, 1) == "!")
-                        fileName += "wykrzyknik.wav";
+                        fileName += "exclamation_mark.wav";
                     else if (toBeSaid.Substring(i, 1) == "?")
-                        fileName += "pytajnik.wav";
+                        fileName += "question_mark.wav";
                     else if (toBeSaid.Substring(i, 1) == "'")
-                        fileName += "apostrof.wav";
+                        fileName += "apostrophe.wav";
                     else if (toBeSaid.Substring(i, 1) == "\"")
-                        fileName += "cudzyslow.wav";
+                        fileName += "quotation_mark.wav";
                     else if (toBeSaid.Substring(i, 1) == "\\")
-                        fileName += "ukosnik_wsteczny.wav";
+                        fileName += "backslash.wav";
                     else if (toBeSaid.Substring(i, 1) == "/")
-                        fileName += "ukosnik.wav";
+                        fileName += "slash.wav";
                     else if (toBeSaid.Substring(i, 1) == "%")
-                        fileName += "procent.wav";
+                        fileName += "percent_sign.wav";
                     else if (toBeSaid.Substring(i, 1) == "*")
-                        fileName += "gwiazdka.wav";
+                        fileName += "asterisk.wav";
                     else if (toBeSaid.Substring(i, 1) == "|")
-                        fileName += "kreska_pionowa.wav";
+                        fileName += "vertical_bar.wav";
                     else if (toBeSaid.Substring(i, 1) == "<")
-                        fileName += "znak_mniejszosci.wav";
+                        fileName += "less_than.wav";
                     else if (toBeSaid.Substring(i, 1) == ">")
-                        fileName += "znak_wiekszosci.wav";
+                        fileName += "greater_than.wav";
                     else if (toBeSaid.Substring(i, 1) == "=")
-                        fileName += "znak_rownosci.wav";
+                        fileName += "equal.wav";
                 }
                 else
                     fileName = null;
@@ -212,7 +240,7 @@ namespace Przeliterowywacz
             return fileName;
         }
 
-        public void spellAsSapi(int i, string toBeSaid)
+        public void SpellAsSapi(int i, string toBeSaid)
         {
             string letterToSpeak = toBeSaid.Substring(i, 1);
             if (letterToSpeak == "0" && readZeroAsO)
@@ -221,17 +249,34 @@ namespace Przeliterowywacz
                 sapi.Speak(letterToSpeak);
         }
 
+        public void SpellUsingSoundbank(string sourceFile, TimeSpan delayTime)
+        {
+            waveStream = WaveFormatConversionStream.CreatePcmStream(new WaveFileReader(sourceFile));
+            waveOut = new WaveOut();
+            waveOut.Init(waveStream);
+            TimeSpan totalCharTime = waveStream.TotalTime + delayTime;
+            waveOut.Play();
+            Stopwatch sw = Stopwatch.StartNew();
+            TimeSpan ts = sw.Elapsed;
+            while (ts < totalCharTime)
+                ts = sw.Elapsed;
+            sw.Stop();
+            waveOut.Dispose();
+            waveStream.Dispose();
+        }
+
         void F1(object txt)
         {
             string toBeSpelled = (string)txt, waveFileName = "";
             SoundPlayer letterFile;
+            TimeSpan delayTimeSpan = TimeSpan.FromMilliseconds(delayBetweenCharsInMs);
             try
             {
                 sapi.SelectVoice(currentSapi);
                 sapi.Rate = sapiRate;
                 sapi.Volume = sapiVolume;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show(String.Format(Properties.Resources.SAPI5VoiceMissingMessage, currentSapi), Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
             }
@@ -239,65 +284,73 @@ namespace Przeliterowywacz
             {
                 for (int i = 0; i < toBeSpelled.Length; i++)
                 {
-                    waveFileName = specifyFileName(i, toBeSpelled);
+                    Dispatcher.BeginInvoke(new Action(delegate()
+                    {
+                        StatusLabel.Content = Properties.Resources.PlayingStatus;
+                    }));
+                    waveFileName = SpecifyFileName(i, toBeSpelled);
                     if (isQuiet)
                         break;
                     if (waveFileName != null)
                     {
                         if (useSapi)
                         {
-                            try 
-	                        {
-                                spellAsSapi(i, toBeSpelled);
-	                        }
-	                        catch (ArgumentNullException)
-	                        {
+                            try
+                            {
+                                SpellAsSapi(i, toBeSpelled);
+                                Thread.Sleep(delayBetweenCharsInMs);
+                            }
+                            catch (ArgumentNullException) // eSpeak common problem fix
+                            {
                                 continue;
-	                        }
+                            }
                             catch (Exception)
                             {
                                 throw;
                             }
                         }
                         else if (!deriveFromDefaultSpeechbank)
-                        {
-                            letterFile = new SoundPlayer((string)waveFileName);
-                            letterFile.PlaySync();
-                        }
+                            SpellUsingSoundbank(waveFileName, delayTimeSpan);
                         else
                         {
                             string actualSpeechbank = currentSpeechbank;
                             if (!File.Exists(waveFileName))
                                 currentSpeechbank = Properties.Resources.Default;
-                            waveFileName = specifyFileName(i, toBeSpelled);
-                            letterFile = new SoundPlayer((string)waveFileName);
-                            letterFile.PlaySync();
+                            waveFileName = SpecifyFileName(i, toBeSpelled);
+                            SpellUsingSoundbank(waveFileName, delayTimeSpan);
                             currentSpeechbank = actualSpeechbank;
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (!useSapi)
                     MessageBox.Show(String.Format(Properties.Resources.HaltedDueToFileMessage, AppDomain.CurrentDomain.BaseDirectory, waveFileName), Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
                 else
-                    MessageBox.Show(Properties.Resources.SAPI5Error + ex.Message, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                    MessageBox.Show(Properties.Resources.SAPI5Error, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
+                Dispatcher.BeginInvoke(new Action(delegate()
+                {
+                    StatusLabel.Content = "";
+                }));
             }
             isQuiet = true;
+            Dispatcher.BeginInvoke(new Action(delegate()
+            {
+                StatusLabel.Content = "";
+            }));
         }
 
-        private void MenuItem1_Click(object sender, RoutedEventArgs e)
+        public void DoSpellingTask(string textToSpell, bool isExternallyCalled = false)
         {
-            if (!firstTimeRunning)
+            if (!firstTimeRunning || isExternallyCalled)
             {
                 if (isQuiet)
                 {
                     if (ow != null)
                         ow.Close();
-                    string textToSpell = TextBox1.Text;
                     isQuiet = false;
-                    Button3.IsEnabled = true;
+                    StopButton.IsEnabled = true;
                     T1 = new Thread(F1);
                     T1.Start(textToSpell);
                 }
@@ -308,16 +361,12 @@ namespace Przeliterowywacz
                 MessageBox.Show(Properties.Resources.NoTextToSpellMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        private void TextBox1_GotMouseCapture(object sender, MouseEventArgs e)
+        private void PlayMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (firstTimeRunning)
-            {
-                TextBox1.Text = "";
-                firstTimeRunning = false;
-            }
+            DoSpellingTask(MainTextBox.Text);
         }
 
-        private void Button2_Click(object sender, RoutedEventArgs e)
+        private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
             if (ow != null)
             {
@@ -326,35 +375,35 @@ namespace Przeliterowywacz
             }
             if (isQuiet)
             {
-                ow = new OptionsWindow(configFileName, includeDiacriticalChars, deriveFromDefaultSpeechbank, useSapi, readZeroAsO, sapiRate, sapiVolume, currentSpeechbank, currentSapi, currentLanguage);
+                ow = new OptionsWindow(configFileName, includeDiacriticalChars, deriveFromDefaultSpeechbank, readZeroAsO, spellWithAltSHotkey, sapiRate, sapiVolume, sampleRate, bitDepth, channels, delayBetweenCharsInMs, useSapi, currentSpeechbank, currentSapi, currentLanguage);
                 ow.Show();
             }
             else
                 MessageBox.Show(Properties.Resources.IsBusyMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        private async void MenuItem2_Click(object sender, RoutedEventArgs e)
+        private async void RecordMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (!firstTimeRunning)
             {
-                var FD = new Microsoft.Win32.SaveFileDialog();
-                FD.FileName = "*";
-                FD.DefaultExt = "wav";
-                FD.ValidateNames = true;
-                FD.Filter = Properties.Resources.FileTypes;
+                var sfd = new Microsoft.Win32.SaveFileDialog();
+                sfd.FileName = "*";
+                sfd.DefaultExt = "wav";
+                sfd.ValidateNames = true;
+                sfd.Filter = Properties.Resources.FileTypes;
 
-                Nullable<bool> result = FD.ShowDialog();
+                Nullable<bool> result = sfd.ShowDialog();
                 if (result == true)
                 {
-                    string textToRecord = TextBox1.Text, waveFileName = "";
+                    string textToRecord = MainTextBox.Text, waveFileName = "";
                     List<string> filesToPlayList = new List<string>();
                     bool wasFailed = false;
 
                     if (!useSapi)
-	                {
+                    {
                         for (int i = 0; i < textToRecord.Length; i++)
                         {
-                            waveFileName = specifyFileName(i, textToRecord);
+                            waveFileName = SpecifyFileName(i, textToRecord);
                             if (waveFileName != null)
                             {
                                 if (File.Exists(waveFileName))
@@ -363,7 +412,7 @@ namespace Przeliterowywacz
                                 {
                                     string actualSpeechbank = currentSpeechbank;
                                     currentSpeechbank = Properties.Resources.Default;
-                                    waveFileName = specifyFileName(i, textToRecord);
+                                    waveFileName = SpecifyFileName(i, textToRecord);
                                     currentSpeechbank = actualSpeechbank;
                                     if (File.Exists(waveFileName) && deriveFromDefaultSpeechbank)
                                         filesToPlayList.Add(waveFileName);
@@ -376,22 +425,33 @@ namespace Przeliterowywacz
                             }
                         }
                     }
-                    else //Zapisywanie nagrań SAPI5
+                    else // Saving SAPI5 recordings
                     {
                         try
                         {
                             sapi.SelectVoice(currentSapi);
                             sapi.Rate = sapiRate;
                             sapi.Volume = sapiVolume;
-                            sapi.SetOutputToWaveFile(FD.FileName);
+                            AudioBitsPerSample sapiBitDepth;
+                            if (bitDepth == 16)
+                                sapiBitDepth = AudioBitsPerSample.Sixteen;
+                            else
+                                sapiBitDepth = AudioBitsPerSample.Eight;
+                            AudioChannel sapiChannels;
+                            if (channels == 2)
+                                sapiChannels = AudioChannel.Stereo;
+                            else
+                                sapiChannels = AudioChannel.Mono;
+                            SpeechAudioFormatInfo sapiFormatInfo = new SpeechAudioFormatInfo(sampleRate, sapiBitDepth, sapiChannels);
+                            sapi.SetOutputToWaveFile(sfd.FileName, sapiFormatInfo);
                             for (int i = 0; i < textToRecord.Length; i++)
                             {
                                 try
                                 {
-                                    spellAsSapi(i, textToRecord);
+                                    SpellAsSapi(i, textToRecord);
                                 }
                                 catch (ArgumentNullException)
-	                            {
+                                {
                                     continue;
                                 }
                                 catch (Exception)
@@ -399,20 +459,20 @@ namespace Przeliterowywacz
                                     throw;
                                 }
                             }
-                            sapi.SetOutputToDefaultAudioDevice();
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(Properties.Resources.SAPI5Error + ex.Message, Properties.Resources.ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Hand);
                             wasFailed = true;
                         }
+                        sapi.SetOutputToDefaultAudioDevice();
                     }
 
                     if (!wasFailed)
                     {
                         if (!useSapi)
-                            Concatenate(FD.FileName, filesToPlayList);
-                        if (File.Exists(FD.FileName))
+                            Concatenate(sfd.FileName, filesToPlayList);
+                        if (File.Exists(sfd.FileName))
                         {
                             StatusLabel.Content = Properties.Resources.SavedStatus;
                             await Task.Delay(5000);
@@ -433,8 +493,9 @@ namespace Przeliterowywacz
                 MessageBox.Show(Properties.Resources.NoTextToRecordMessage, MainSpeechWindow.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        private void MainSpeechWindow_Closed(object sender, EventArgs e)
+        private void MainSpeechWindow_Closing(object sender, EventArgs e)
         {
+            UnregisterAltSHotkey();
             isQuiet = true;
             if (ow != null)
                 ow.Close();
@@ -442,12 +503,12 @@ namespace Przeliterowywacz
                 aw.Close();
         }
 
-        private void Button3_Click(object sender, RoutedEventArgs e)
+        private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             isQuiet = true;
         }
 
-        private void Button4_Click(object sender, RoutedEventArgs e)
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             if (aw != null)
             {
@@ -455,7 +516,50 @@ namespace Przeliterowywacz
                 aw = null;
             }
             aw = new AboutWindow();
-            aw.Show();
+            aw.ShowDialog();
+        }
+
+        private void MainTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (firstTimeRunning)
+            {
+                MainTextBox.Text = "";
+                firstTimeRunning = false;
+            }
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == 0x0312)
+            {
+                try
+                {
+                    string clipboardTextToSpell = Clipboard.GetText();
+                    if (clipboardTextToSpell != null && clipboardTextToSpell != "")
+                        DoSpellingTask(clipboardTextToSpell, true);
+                }
+                catch (AccessViolationException) // happens mostly when the Clipboard is completely empty
+                {
+                    ;
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+
+        private void HookWndProc(Visual window)
+        {
+            var source = PresentationSource.FromVisual(window) as HwndSource;
+            if (source == null) throw new Exception("Could not create hWnd source from window.");
+            source.AddHook(WndProc);
+        }
+
+        private void MainSpeechWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            hWnd = new WindowInteropHelper(this).Handle;
+            HookWndProc(this);
+            if (spellWithAltSHotkey)
+                RegisterAltSHotkey();
         }
     }
 }

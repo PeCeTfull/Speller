@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Przeliterowywacz", "Przeliterowywacz\Przeliterowywacz.csproj", "{0FB2D3AB-C3C2-4A72-A31F-D9F5A0EA5369}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speller", "Speller\Speller.csproj", "{0FB2D3AB-C3C2-4A72-A31F-D9F5A0EA5369}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

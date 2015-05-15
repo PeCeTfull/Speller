@@ -139,7 +139,7 @@
     <value>Wprowadź tutaj tekst do odczytania</value>
   </data>
   <data name="HaltedDueToFileMessage" xml:space="preserve">
-    <value>Operacja przerwana, ponieważ wystąpił problem z następującym plikiem dźwiękowym: {0}{1}. Proszę się upewnić, czy plik istnieje.</value>
+    <value>Operacja przerwana, ponieważ wystąpił problem z następującym plikiem dźwiękowym: {0}{1}. Proszę się upewnić, czy plik istnieje oraz jego format jest kompatybilny.</value>
   </data>
   <data name="IsBusyMessage" xml:space="preserve">
     <value>Program zajęty. Aby móc to zrobić, należy najpierw poczekać na zakończenie operacji.</value>
@@ -197,9 +197,12 @@
 Wersja: {1}
 Autor: {2}
 {3}
-Modyfikowanie oraz sprzedawanie tego programu jest surowo zabronione.
-Specjalne podziękowania dla Marka Heatha za bibliotekę NAudio oraz 
-użytkownika pfcode za użyczenie głosu do domyślnego banku mowy.</value>
+
+Ten program jest publikowany na zasadach licencji MIT. Więcej informacji można uzyskać 
+zapoznając się z plikiem Licence.txt dołączonym do aplikacji (polskie tłumaczenie licencji MIT: 
+http://blaszyk-jarosinski.pl/wp-content/uploads/2008/05/licencja-mit-tlumaczenie.pdf).
+Specjalne podziękowania dla Marka Heatha za bibliotekę NAudio oraz użytkownika pfcode 
+za użyczenie głosu do polskiego banku mowy.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Język interfejsu: </value>
@@ -223,7 +226,7 @@ użytkownika pfcode za użyczenie głosu do domyślnego banku mowy.</value>
     <value>Nie można powiązać plików dźwiękowych nie będących tego samego formatu!</value>
   </data>
   <data name="BanksFolderNotFound" xml:space="preserve">
-    <value>NIE ZNALEZIONO FOLDERU „Banki”</value>
+    <value>NIE ZNALEZIONO FOLDERU „Banks”</value>
   </data>
   <data name="SAPI5Synthesis" xml:space="preserve">
     <value>Syntezy SAPI5</value>
@@ -272,5 +275,59 @@ użytkownika pfcode za użyczenie głosu do domyślnego banku mowy.</value>
   </data>
   <data name="StopButton" xml:space="preserve">
     <value>_Zatrzymaj</value>
+  </data>
+  <data name="PlayingStatus" xml:space="preserve">
+    <value>Odtwarzanie...</value>
+  </data>
+  <data name="BitDepth" xml:space="preserve">
+    <value>Głębia bitowa: </value>
+  </data>
+  <data name="Channels" xml:space="preserve">
+    <value>Kanały: </value>
+  </data>
+  <data name="CustomValue" xml:space="preserve">
+    <value>Wartość niestandardowa: </value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>Częstotliwość próbkowania: </value>
+  </data>
+  <data name="SampleRate11025" xml:space="preserve">
+    <value>11 025 kHz</value>
+  </data>
+  <data name="SampleRate12000" xml:space="preserve">
+    <value>12 000 kHz</value>
+  </data>
+  <data name="SampleRate16000" xml:space="preserve">
+    <value>16 000 kHz</value>
+  </data>
+  <data name="SampleRate22050" xml:space="preserve">
+    <value>22 050 kHz</value>
+  </data>
+  <data name="SampleRate24000" xml:space="preserve">
+    <value>24 000 kHz</value>
+  </data>
+  <data name="SampleRate32000" xml:space="preserve">
+    <value>32 000 kHz</value>
+  </data>
+  <data name="SampleRate44100" xml:space="preserve">
+    <value>44 100 kHz</value>
+  </data>
+  <data name="SampleRate48000" xml:space="preserve">
+    <value>48 000 kHz</value>
+  </data>
+  <data name="SampleRate8000" xml:space="preserve">
+    <value>8 000 kHz</value>
+  </data>
+  <data name="DelayBetweenSpokenChars" xml:space="preserve">
+    <value>Opóźnienie między wymawianymi znakami: </value>
+  </data>
+  <data name="SpellWithAltSHotkey" xml:space="preserve">
+    <value>Przeliteruj zawartość Schowka za pomocą kombinacji klawiszy Alt+S</value>
+  </data>
+  <data name="Speller" xml:space="preserve">
+    <value>Przeliterowywacz (Speller)</value>
+  </data>
+  <data name="BanksFolderNotFoundMessage" xml:space="preserve">
+    <value>Nie udało się odnaleźć folderu „Banks” w katalogu programu. Proszę ręcznie utworzyć folder lub przeinstalować to oprogramowanie w celu skorzystania z funkcji banków mowy.</value>
   </data>
 </root>

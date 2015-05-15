@@ -1,0 +1,27 @@
+﻿<Window x:Class="Speller.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:Speller.Properties"
+        Title="{x:Static p:Resources.AboutCaption}" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="Iconexpo-Speech-Balloon-Grey-Speech-balloon-white-s.ico" ShowInTaskbar="False">
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CloseCommandBinding_Executed" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Key="Escape" />
+        <KeyBinding Command="Close" Key="Enter" />
+    </Window.InputBindings>
+    <Window.Background>
+        <RadialGradientBrush>
+            <GradientStop Color="#FF099BEA" Offset="0" />
+            <GradientStop Color="#FF166ADA" Offset="0.5" />
+            <GradientStop Color="#FF623FD2" Offset="1" />
+        </RadialGradientBrush>
+    </Window.Background>
+    <StackPanel>
+        <Label Name="AboutLabel" Content="{x:Static p:Resources.AboutContent}" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" />
+        <UniformGrid Columns="2" HorizontalAlignment="Stretch" Margin="0,4,0,10" VerticalAlignment="Top">
+            <Button Name="OKDockButton" Content="_OK" Width="110" Click="OKDockButton_Click" />
+            <Button Name="WebsiteDockButton" Content="{x:Static p:Resources.WebsiteButton}" Width="110" Click="WebsiteDockButton_Click" />
+        </UniformGrid>
+    </StackPanel>
+</Window>

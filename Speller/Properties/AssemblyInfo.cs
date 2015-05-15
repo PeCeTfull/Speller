@@ -7,13 +7,13 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Przeliterowywacz")]
-[assembly: AssemblyDescription("Program służący do przeliterowywania znaków pisemnych i zapisywania ich w postaci nagrań formatu WAVE.")]
+[assembly: AssemblyTitle("Speller")]
+[assembly: AssemblyDescription("Spell text aloud and record a speech in the WAVE format using soundbanks or SAPI5 voices")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PeCeT_full")]
-[assembly: AssemblyProduct("Przeliterowywacz")]
-[assembly: AssemblyCopyright("Copyright © PeCeT_full 2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("Speller")]
+[assembly: AssemblyCopyright("Copyright © PeCeT_full 2014-2015")]
+[assembly: AssemblyTrademark("Some rights reserved")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -51,5 +51,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.*")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.3.*")]
+[assembly: AssemblyFileVersion("1.3.0.0")]

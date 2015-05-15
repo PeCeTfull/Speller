@@ -130,7 +130,7 @@
     <value>Enter text to be read here</value>
   </data>
   <data name="HaltedDueToFileMessage" xml:space="preserve">
-    <value>Operation aborted because the problem has occured with the following sound file: {0}{1}. Please make sure the file exists.</value>
+    <value>Operation aborted because the problem has occured with the following sound file: {0}{1}. Please make sure the file exists and its format is compatible.</value>
   </data>
   <data name="IsBusyMessage" xml:space="preserve">
     <value>Program busy. In order to do it, you need to wait for the end of the operation first.</value>
@@ -197,9 +197,11 @@
 Version: {1}
 Author: {2}
 {3}
-Modifying and selling this program is strictly prohibited.
-Special thanks to Mark Heath for NAudio library and 
-pfcode for lending the voice for the default speech bank.</value>
+
+This program is published under The MIT License. For more information, 
+please refer to the Licence.txt file included with the application.
+Special thanks to Mark Heath for NAudio library and pfcode for lending 
+the voice for the Polish speech bank.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Interface language: </value>
@@ -231,9 +233,6 @@ pfcode for lending the voice for the default speech bank.</value>
   </data>
   <data name="CannotConcatenateDifferentFormatsException" xml:space="preserve">
     <value>Cannot concatenate sound files that don't share the same format!</value>
-  </data>
-  <data name="BanksFolderNotFound" xml:space="preserve">
-    <value>"Banki" FOLDER NOT FOUND</value>
   </data>
   <data name="SAPI5Synthesis" xml:space="preserve">
     <value>SAPI5 synthesis</value>
@@ -282,5 +281,62 @@ pfcode for lending the voice for the default speech bank.</value>
   </data>
   <data name="StopButton" xml:space="preserve">
     <value>S_top</value>
+  </data>
+  <data name="PlayingStatus" xml:space="preserve">
+    <value>Playing...</value>
+  </data>
+  <data name="BitDepth" xml:space="preserve">
+    <value>Bit depth: </value>
+  </data>
+  <data name="Channels" xml:space="preserve">
+    <value>Channels: </value>
+  </data>
+  <data name="CustomValue" xml:space="preserve">
+    <value>Custom value: </value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>Sample rate: </value>
+  </data>
+  <data name="SampleRate11025" xml:space="preserve">
+    <value>11,025 kHz</value>
+  </data>
+  <data name="SampleRate12000" xml:space="preserve">
+    <value>12,000 kHz</value>
+  </data>
+  <data name="SampleRate16000" xml:space="preserve">
+    <value>16,000 kHz</value>
+  </data>
+  <data name="SampleRate22050" xml:space="preserve">
+    <value>22,050 kHz</value>
+  </data>
+  <data name="SampleRate24000" xml:space="preserve">
+    <value>24,000 kHz</value>
+  </data>
+  <data name="SampleRate32000" xml:space="preserve">
+    <value>32,000 kHz</value>
+  </data>
+  <data name="SampleRate44100" xml:space="preserve">
+    <value>44,100 kHz</value>
+  </data>
+  <data name="SampleRate48000" xml:space="preserve">
+    <value>48,000 kHz</value>
+  </data>
+  <data name="SampleRate8000" xml:space="preserve">
+    <value>8,000 kHz</value>
+  </data>
+  <data name="DelayBetweenSpokenChars" xml:space="preserve">
+    <value>Delay between spoken chars: </value>
+  </data>
+  <data name="SpellWithAltSHotkey" xml:space="preserve">
+    <value>Spell Clipboard content using the Alt+S hotkey combination</value>
+  </data>
+  <data name="Speller" xml:space="preserve">
+    <value>Speller</value>
+  </data>
+  <data name="BanksFolderNotFound" xml:space="preserve">
+    <value>"Banks" FOLDER NOT FOUND</value>
+  </data>
+  <data name="BanksFolderNotFoundMessage" xml:space="preserve">
+    <value>Could not find "Banks" folder in the program's directory. Please create the folder manually or reinstall this software in order to use speech bank feature.</value>
   </data>
 </root>

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Reflection;
 using System.Diagnostics;
 
-namespace Przeliterowywacz
+namespace Speller
 {
     /// <summary>
     /// Interaction logic for AboutWindow.xaml
@@ -48,17 +48,27 @@ namespace Przeliterowywacz
             }
             else
                 copyrightInfo = copyright.Copyright;
-            this.Label1.Content = String.Format(this.Label1.Content.ToString(), title.Title, ver.ToString(), author, copyrightInfo);
+            this.AboutLabel.Content = String.Format(this.AboutLabel.Content.ToString(), title.Title, ver.ToString(), author, copyrightInfo);
         }
 
-        private void DockButton1_Click(object sender, RoutedEventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            WindowIcon.Remove(this);
+        }
+
+        private void OKDockButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void DockButton2_Click(object sender, RoutedEventArgs e)
+        private void WebsiteDockButton_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Properties.Resources.Website);
+        }
+
+        private void CloseCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

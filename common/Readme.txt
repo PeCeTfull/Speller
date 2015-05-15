@@ -1,7 +1,7 @@
-Przeliterowywacz (Speller) #PUTTHEVERSIONHERE
+Speller #PUTTHEVERSIONHERE
 Author: PeCeT_full
 Website: http://www.komputermania.pl.eu.org
-Copyright © by PeCeT_full 2014. Modifying and selling this program is strictly prohibited.
+Copyright (c) by PeCeT_full 2014-2015. This program is published under The MIT License. For more information, please refer to Licence.txt included with the application.
 Special thanks to Mark Heath for NAudio library and pfcode for lending the voice for the default speech bank.
 
 If there are any problems or doubts, please contact me.
@@ -18,37 +18,43 @@ Hardware and system requirements: 1 GHz or faster processor; 512 MB of available
 Handling the program
 --------------------
 
-Przeliterowywacz is intuitive to use and has a simple interface. In order to make the program work, some text to read by speaking each character singly is needed to be entered. In this case, you need to click left mouse button on the text area and then, type (or paste from Clipboard) what is intended for you to hear (in case of no space for typing, the area, along with the application window, will be automatically expanded). If your intention is solely to listen to your spelled text then after pressing the "Spell" button, just click on "Play" from the pop-up menu (however, let's keep in mind that program options cannot be changed while working), but when you need the entire thing as a recording, you should select the "Record" command and then, specify the name and location where the sound file ought to be saved – after successfully finished operation, a marquee should appear for a few seconds on the bottom of main window with the message: "Saved."
+Speller is intuitive to use and has a simple interface. In order to make the program work, some text to read by speaking each char singly is needed to be entered. In this case, you need to click left mouse button on the text area and then, type (or paste from Clipboard) what is intended for you to hear (in case of no space for typing, the area, along with the application window, will be automatically expanded). If your intention is solely to listen to your spelled text then after pressing the "Spell" button, just click on "Play" from the pop-up menu (however, let's keep in mind that program options cannot be changed while working), but when you need the entire thing as a recording, you should select the "Record" command and then, specify the name and location where the sound file ought to be saved – after successfully finished operation, a marquee should appear for a few seconds on the bottom of main window with the message: "Saved."
 
 ---------------
 Program options
 ---------------
 
-Przeliterowywacz allows to change the following settings: 
+Speller allows to change the following settings: 
 
 * [Soundbanks only] Enable special and punctuation chars (e.g. comma, exclamation mark, asterisk etc.) – leaving this option marked causes that in any spoken text the following special characters will be taken into account: . , : ; ! ? ' " \ / % * | < > = whereas having it unmarked will make them omitted during reading. Keep in mind, however, that each of these characters corresponds to the file name other than its symbol, thus: 
-. – kropka.wav, 
-, – przecinek.wav, 
-: – dwukropek.wav, 
-; – srednik.wav, 
-! – wykrzyknik.wav, 
-? – pytajnik.wav, 
-' – apostrof.wav, 
-" – cudzyslow.wav, 
-\ – ukosnik_wsteczny.wav, 
-/ – ukosnik.wav, 
-% – procent.wav, 
-* – gwiazdka.wav, 
-| – kreska_pionowa.wav, 
-< – znak_mniejszosci.wav, 
-> – znak_wiekszosci.wav, 
-= – znak_rownosci.wav.
+. – period.wav, 
+, – comma.wav, 
+: – colon.wav, 
+; – semicolon.wav, 
+! – exclamation_mark.wav, 
+? – question_mark.wav, 
+' – apostrophe.wav, 
+" – quotation_mark.wav, 
+\ – backslash.wav, 
+/ – slash.wav, 
+% – percent_sign.wav, 
+* – asterisk.wav, 
+| – vertical_bar.wav, 
+< – less_than.wav, 
+> – greater_than.wav, 
+= – equal.wav.
 
 * [Soundbanks only] Derive files from the default speech bank if such are missing in the selected one - this options causes uttered characters being played or recorded from the default speech bank once if their equivalents are missing in the currently selected one by the user.
 
 * [SAPI5 only] SAPI5's rate/volume – allows to customize the values of rate and volume of the text spoken by a synthesizer from -10 to 10 for the rate and from 0 to 100 for the volume, respectively.
 
 * Read all zero characters as the letter 'o' – in some places in the world, people tend to pronounce zeros as oh's while spelling and this function meets this prerequisite.
+
+* Spell Clipboard content using the Alt+S hotkey combination – useful when you are willing to hear spelled characters without any need of switching between windows.
+
+* Sample rate, bit depth and channels – these are the basic specifications of every WAVE sound file. The quality and size of a target recording depend on them.
+
+* [Only in play mode] Delay between spoken chars (in ms) – determines how long the silence must last between one char and another.
 
 * Use speech banks/SAPI5 synthesis.
 
@@ -60,4 +66,4 @@ Przeliterowywacz allows to change the following settings:
 
 * Interface language – the language in which the application shall communicate with the user.
 
-If the changes are to be taken into account after another launch of Przeliterowywacz, you need to press the "Save settings" button yet before turning it off. In case of saving these for the first time, a configuration file called Przeliterowywacz.ini will be created, which in most cases should appear in the individual program's folder located in the special VirtualStore directory of the currently logged user (although when User Account Control is disabled or the program is installed in a completely different location, it will be brought into its own home directory directly). Its manual modification is not recommended, nevertheless it is possible to remove it with no problem since in case of its lack, a new file called the same will be created.
+If the changes are to be taken into account after another launch of Speller, you need to press the "Save settings" button yet before turning it off. In case of saving these for the first time, a configuration file called Speller.ini will be created, which in most cases should appear in the individual program's folder located in the special VirtualStore directory of the currently logged user (although when User Account Control is disabled or the program is installed in a completely different location, it will be brought into its own home directory directly). Its manual modification is not recommended, nevertheless it is possible to remove it with no problem since in case of its lack, a new file called the same will be created.
