@@ -2,6 +2,8 @@
 
 This program, as the name suggests, can spell (i.e. uttering each character separately) by speaking and save prepared speech as a WAVE sound file by using available files reflecting the pronunciation of a specified character. It was written in C# and uses WPF. Runs in 32-bit mode in order to increase the compatibility with the SAPI5 speech synthesizers not intended to work with 64-bit applications.
 
+Special thanks to Mark Heath for NAudio library and pfcode for lending the voice for the Polish speech bank.
+
 ### Handling the program ###
 
 Speller is intuitive to use and has a simple interface. In order to make the program work, some text to read by speaking each char singly is needed to be entered. In this case, you need to click left mouse button on the text area and then, type (or paste from Clipboard) what is intended for you to hear (in case of no space for typing, the area, along with the application window, will be automatically expanded). If your intention is solely to listen to your spelled text then after pressing the "Spell" button, just click on "Play" from the pop-up menu (however, let's keep in mind that program options cannot be changed while working), but when you need the entire thing as a recording, you should select the "Record" command and then, specify the name and location where the sound file ought to be saved – after successfully finished operation, a marquee should appear for a few seconds on the bottom of main window with the message: "Saved."

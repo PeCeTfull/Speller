@@ -2,7 +2,7 @@ Speller #PUTTHEVERSIONHERE
 Author: PeCeT_full
 Website: http://www.komputermania.pl.eu.org
 Copyright (c) by PeCeT_full 2014-2015. This program is published under The MIT License. For more information, please refer to Licence.txt included with the application.
-Special thanks to Mark Heath for NAudio library and pfcode for lending the voice for the default speech bank.
+Special thanks to Mark Heath for NAudio library and pfcode for lending the voice for the Polish speech bank.
 
 If there are any problems or doubts, please contact me.
 
