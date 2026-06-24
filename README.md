@@ -66,3 +66,9 @@ Visual Studio 2012 or 2013.
 ### Program licence ###
 
 Speller is published under The MIT License. Please refer to the LICENSE.txt file of this repository for more information regarding it.
+
+### Screenshots ###
+
+<img width="525" height="113" alt="The main window of Speller" src="https://github.com/user-attachments/assets/7b79a205-d106-42bc-b23e-cf650a1ee7f7" />
+
+<img width="568" height="492" alt="Available options in Speller" src="https://github.com/user-attachments/assets/0e22d30f-33e6-4d0d-baa9-440508b1bf46" />
